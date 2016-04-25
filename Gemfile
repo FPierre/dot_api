@@ -3,17 +3,18 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-# gem 'redis', '~> 3.0'
-# gem 'bcrypt', '~> 3.1.7'
-# gem 'rack-cors'
 # gem 'active_model_serializers', '~> 0.10.0.rc5'
 # gem 'apipie-rails'
-gem 'awesome_print'
+# gem 'bcrypt', '~> 3.1.7'
 # gem 'devise', '~> 4.0'
+# gem 'rack-cors'
+# gem 'redis', '~> 3.0'
+gem 'awesome_print'
 gem 'lograge'
 gem 'puma'
 gem 'rails', '>= 5.0.0.beta3', '< 5.1'
 gem 'redis', '~> 3.0'
+gem 'sqlite3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
