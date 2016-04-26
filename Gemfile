@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'simple_token_authentication', git: 'git://github.com/FPierre/simple_token_authentication.git', branch: 'master'
+gem 'simple_token_authentication', git: 'git://github.com/gonzalo-bulnes/simple_token_authentication.git', branch: 'master'
 
 # gem 'bcrypt', '~> 3.1.7'
 # gem 'rack-cors'
@@ -16,6 +16,7 @@ gem 'devise', '~> 4.0'
 gem 'geocoder'
 gem 'lograge'
 gem 'mysql2'
+gem 'paperclip', '~> 5.0.0.beta2'
 gem 'puma'
 gem 'rails', '>= 5.0.0.beta3', '< 5.1'
 gem 'redis', '~> 3.0'
