@@ -19,3 +19,6 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+config/initializers/secret_token.rb
+config/secrets.yml
