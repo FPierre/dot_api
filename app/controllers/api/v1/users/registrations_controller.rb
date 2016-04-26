@@ -16,7 +16,7 @@ module Api
     class Users::RegistrationsController < Devise::RegistrationsController
       # respond_to :json
 
-      skip_before_action :verify_authenticity_token
+      # skip_before_action :verify_authenticity_token
 
       # resource_description do
       #   resource_id 'Users'
