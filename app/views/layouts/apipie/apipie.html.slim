@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title = t('apipie.api_documentation')
+
+    meta name='viewport' content='width=device-width, initial-scale=1.0'
+
+    / = Apipie.include_stylesheets
+
+    / link rel='stylesheet' href='<%= Apipie.full_url("stylesheets/application.css")%>'
+
+    = stylesheet_link_tag 'apipie', media: 'all', 'data-turbolinks-track' => true
+
+    = javascript_include_tag 'apipie', 'data-turbolinks-track' => true
+body class="#{controller_name.deconstantize} #{controller_name.demodulize} #{action_name}"
+  .row
+    .col.s12
+      main = yield
+
+  .row
+    .col.s12
+      = render 'disqus' if Apipie.configuration.use_disqus?
+
+  .row
+    .col.s12
+      footer = yield :apipie_footer
+
+  / = Apipie.include_javascripts

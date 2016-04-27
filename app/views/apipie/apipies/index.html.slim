@@ -1,0 +1,115 @@
+ul.breadcrumb
+  li.active
+    a href="#{@doc[:doc_url]}#{@doc[:link_extension]}"
+      = @doc[:name]
+      = @doc[:resources].values.first && @doc[:resources].values.first[:version]
+
+  = render(partial: 'languages', locals: { doc_url: @doc[:doc_url] })
+
+  - if @versions && @versions.size > 1
+    li.pull-right
+      = @versions.collect { |v| link_to v, Apipie.full_url(v+@doc[:link_extension]) }.join(' / ').html_safe
+
+.row
+  .col.s12
+    h1.page-header = t('apipie.resources')
+    div = raw @doc[:info]
+
+- @doc[:resources].each do |key, api|
+  / = ap(api).html_safe
+  .row
+    .col.s12
+      h2 = api[:name]
+      h3 = api[:short_description]
+
+  .row
+    .col.s12
+      ul.collapsible data-collapsible='expandable'
+        - api[:methods].each do |m|
+          - if !m[:show]
+            - next
+
+
+          - m[:apis].each do |a|
+            li
+              .collapsible-header
+                .row
+                  .col.m1.hide-on-small-only
+                    span class="chip #{a[:http_method].downcase!}" = a[:http_method]
+
+                  .col.s12.m5.truncate
+                    = a[:api_url]
+
+                  .col.s2.hide-on-med-and-up
+                    span class="chip #{a[:http_method].downcase!}" = a[:http_method]
+
+                  .col.s8.m5.truncate
+                    = a[:short_description]
+
+                  .col.s2.m1
+                    - if m.dig :metadata, :status
+                      - if m[:metadata][:status] == :pending
+                        = fa_icon 'question'
+                      - elsif m[:metadata][:status] == :ok
+                        = fa_icon 'check', class: 'green-text text-lighten-2'
+                      - elsif m[:metadata][:status] == :ko
+                        = fa_icon 'times', class: 'red-text text-lighten-2'
+                    - else
+                      = fa_icon 'question'
+
+              .collapsible-body
+                .row
+                  .col.s12
+                    h3 Full description
+
+                .row
+                  .col.s12
+                    = raw m[:full_description]
+
+                .row
+                  .col.s12
+                    h3 Clients
+
+                .row
+                  .col.s12
+                    - if m.dig :metadata, :clients
+                      - m[:metadata][:clients].each do |client|
+                        - if client == :android_application
+                          = fa_icon 'android 2x'
+                        - elsif client == :web_application
+                          = fa_icon 'chrome 2x'
+                        - elsif client == :sarah
+                          = fa_icon 'microphone 2x'
+
+                .row
+                  .col.s12
+                    h3 Parameters
+
+                - if m[:params].present?
+                  .row
+                    .col.s12
+                      table.centered
+                        thead
+                          tr
+                            th data-field='full_name' Full Name
+                            th data-field='name' Required
+                            th data-field='price' Allow null
+
+                        tbody
+                          - m[:params].each do |param|
+                            tr
+                              td = param[:full_name]
+                              td
+                                - if param[:required]
+                                  = fa_icon 'check-circle', class: 'fa-2x green-text text-lighten-2'
+                                - else
+                                  = fa_icon 'times-circle', class: 'fa-2x red-text text-lighten-2'
+
+                              td
+                                - if param[:allow_nil]
+                                  = fa_icon 'check-circle', class: 'fa-2x green-text text-lighten-2'
+                                - else
+                                  = fa_icon 'times-circle', class: 'fa-2x red-text text-lighten-2'
+
+- unless content_for(:apipie_footer) == @doc[:copyright]
+  = content_for :apipie_footer, raw(@doc[:copyright])
