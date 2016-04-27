@@ -25,17 +25,8 @@ Rails.application.routes.draw do
     end
   end
 
-  # devise_for :users, controllers: {
-  #   registrations: 'api/v1/users/registrations',
-  #   sessions: 'users/sessions'
-  # }
+  # devise_for :users, controllers: { registrations: 'api/v1/users/registrations', sessions: 'users/sessions' }
   devise_for :users, skip: [:sessions, :passwords, :registrations]
-
-  # scope 'dashboard', controller: :dashboard do
-  #   # ex : dashboard/resize/1/full, dashboard/resize/2/half
-  #   get 'resize/:zone/:size',       action: :resize
-  #   get 'routes/from/:from/to/:to', action: :routes
-  # end
 
   mount ActionCable.server => '/cable'
 end

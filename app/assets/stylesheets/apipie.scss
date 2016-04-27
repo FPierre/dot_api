@@ -21,6 +21,16 @@ h2 {
   font-size: 2.2rem;
 }
 
+.codes {
+  .success {
+    @extend .lime-text;
+  }
+
+  .error {
+    @extend .red-text;
+  }
+}
+
 .collapsible-header {
   padding: {
     top: 8px;
@@ -76,4 +86,3 @@ h2 {
     padding: 15px 0;
   }
 }
-

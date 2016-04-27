@@ -111,5 +111,24 @@ ul.breadcrumb
                                 - else
                                   = fa_icon 'times-circle', class: 'fa-2x red-text text-lighten-2'
 
+                .row
+                  .col.s12
+                    h3 Parameters
+
+                - if m[:errors].present?
+                  .row
+                    .col.s12
+                      table.codes.centered
+                        thead
+                          tr
+                            th data-field='code' Code
+                            th data-field='description' Description
+
+                        tbody
+                          - m[:errors].each do |error|
+                            tr class="#{(400..511).include?(error[:code]) ? 'error' : 'success'}"
+                              td = error[:code]
+                              td = error[:description]
+
 - unless content_for(:apipie_footer) == @doc[:copyright]
   = content_for :apipie_footer, raw(@doc[:copyright])
