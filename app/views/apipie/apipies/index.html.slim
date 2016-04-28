@@ -59,19 +59,14 @@ ul.breadcrumb
 
               .collapsible-body
                 .row
-                  .col.s12
+                  .col.s12.m9
                     h3 Full description
 
-                .row
-                  .col.s12
                     = raw m[:full_description]
 
-                .row
-                  .col.s12
+                  .col.s12.m3
                     h3 Clients
 
-                .row
-                  .col.s12
                     - if m.dig :metadata, :clients
                       - m[:metadata][:clients].each do |client|
                         - if client == :android_application
@@ -81,43 +76,36 @@ ul.breadcrumb
                         - elsif client == :sarah
                           = fa_icon 'microphone 2x'
 
-                .row
-                  .col.s12
-                    h3 Parameters
-
                 - if m[:params].present?
                   .row
                     .col.s12
+                      h3 Parameters
+
                       table.centered
                         thead
                           tr
                             th data-field='full_name' Full Name
-                            th data-field='name' Required
-                            th data-field='price' Allow null
+                            th data-field='type' Type
+                            th data-field='required' Required
 
                         tbody
                           - m[:params].each do |param|
                             tr
                               td = param[:full_name]
                               td
+                                - if param[:validator]
+                                  = Apipie.markup_to_html(param[:validator]).html_safe
+                              td
                                 - if param[:required]
                                   = fa_icon 'check-circle', class: 'fa-2x green-text text-lighten-2'
                                 - else
                                   = fa_icon 'times-circle', class: 'fa-2x red-text text-lighten-2'
 
-                              td
-                                - if param[:allow_nil]
-                                  = fa_icon 'check-circle', class: 'fa-2x green-text text-lighten-2'
-                                - else
-                                  = fa_icon 'times-circle', class: 'fa-2x red-text text-lighten-2'
-
-                .row
-                  .col.s12
-                    h3 HTTP codes
-
                 - if m[:errors].present?
                   .row
                     .col.s12
+                      h3 HTTP codes
+
                       table.codes.centered
                         thead
                           tr

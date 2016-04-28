@@ -18,6 +18,10 @@ h1 {
 }
 
 h2 {
+  margin: {
+    top: 10px;
+    bottom: 10px;
+  };
   font-size: 2.2rem;
 }
 
@@ -72,13 +76,15 @@ h2 {
 }
 
 .collapsible-body {
-  padding-bottom: 30px;
-
   .row {
     margin-bottom: 0;
   }
 
   h3 {
+    margin: {
+      top: 10px;
+      bottom: 10px;
+    };
     font-size: 1.6rem;
   }
 
