@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160427204946) do
+ActiveRecord::Schema.define(version: 20160128125935) do
 
   create_table "reminders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
-    t.string   "content",    limit: 75
+    t.string   "content",    limit: 75,             null: false
+    t.integer  "priority",              default: 3, null: false
+    t.integer  "user_id",                           null: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
-    t.integer  "user_id"
-    t.integer  "priority",              default: 3
   end
 
   add_index "reminders", ["user_id"], name: "index_reminders_on_user_id", using: :btree
