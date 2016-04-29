@@ -27,47 +27,26 @@ module Api
 
       api :POST, '/users', 'Create an User'
       def create
-        user = User.new params[:user]
+        user = User.new user_params
 
-        respond_to do |format|
-          if user.save
-            format.html {  }
-            format.json { render json: user, status: :created }
-          else
-            format.html {  }
-            format.json { render json: user.errors, status: :unprocessable_entity }
-          end
+        if user.save
+          render json: user, status: :created
+        else
+          render json: user.errors, status: :unprocessable_entity
         end
-
-
-
-
-        # super
-
-        # respond_to do |format|
-        #   format.html { redirect_to root_path and return }
-        #   format.json { render json: resource and return }
-        # end
 
         # super do |resource|
         #   avatar = Avatarly.generate_avatar resource.email, size: 256
-
         #   File.open("public/images/#{resource.email.parameterize}.png", 'wb') do |f|
         #     f.write avatar
         #   end
-
         #   resource.update avatar: File.new("public/images/#{resource.email.parameterize}.png")
-
-        #   # respond_to do |format|
-        #   #   format.html { redirect_to root_path }
-        #   #   format.json { render json: resource }
-        #   # end
         # end
       end
 
       api :PUT, '/users', 'Update an User'
       def update
-        super
+        # super
       end
 
       # DELETE /resource
@@ -83,6 +62,11 @@ module Api
       # def cancel
       #   super
       # end
+
+      private
+        def user_params
+          params.permit(:email, :firstname, :lastname, :password)
+        end
 
       protected
       # If you have extra params to permit, append them to the sanitizer.
@@ -101,14 +85,14 @@ module Api
       # end
 
         # The path used after sign up for inactive accounts.
-        def after_inactive_sign_up_path_for resource
+        # def after_inactive_sign_up_path_for resource
           # super resource
 
           # respond_to do |format|
           #   format.html { super(resource) }
           #   format.json { render json: resource }
           # end
-        end
+        # end
     end
   end
 end
