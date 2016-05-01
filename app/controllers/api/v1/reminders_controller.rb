@@ -1,14 +1,18 @@
 module Api
   module V1
     class RemindersController < ApplicationController
-      # acts_as_token_authentication_handler_for User, fallback: :exception
+      # acts_as_token_authentication_handler_for User, fallback: :none
+      # acts_as_token_authentication_handler_for User
+
+      acts_as_token_authentication_handler_for User, fallback_to_devise: false
+      # before_filter :authenticate_user!
 
       api :POST, '/reminders', 'Create a Reminder'
       error code: 422, desc: 'Unprocessable entity'
       error code: 201, desc: 'Created'
       meta clients: [:android_application, :web_application], status: :pending
       param :content,    String,    desc: 'Content',          required: true
-      param :display_at, DateTime,  desc: 'Display datetime', required: true
+      param :display_at, DateTime,  desc: 'Trigger datetime', required: true
       param :duration,   [1..60],   desc: 'Duration',         required: true
       param :priority,   [1, 2, 3], desc: 'Priority',         required: false
       param :title,      String,    desc: 'Title',            required: false

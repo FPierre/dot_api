@@ -3,15 +3,19 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      # devise_for :users, skip: [:passwords]
+
       get 'ping', to: 'ping#ping', as: :ping
 
-      devise_scope :user do
-        post 'sign_in', to: 'users/sessions#create', as: :user_session
-        # delete 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
-        delete 'users', to: 'users/registrations#destroy', as: :destroy_user_registration
-        post 'users', to: 'users/registrations#create', as: :user_registration
-        # put 'users', to: 'users/registrations#update'
-      end
+      # devise_scope :user do
+      #   get 'users', to: 'users/users#index'
+
+      #   post 'sign_in', to: 'users/sessions#create', as: :user_session
+      #   # delete 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
+      #   delete 'users', to: 'users/registrations#destroy', as: :destroy_user_registration
+      #   post 'users', to: 'users/registrations#create', as: :user_registration
+      #   # put 'users', to: 'users/registrations#update'
+      # end
 
       scope 'dashboard', controller: :dashboard do
         get 'path/from/:from/to/:to', action: :path
@@ -26,12 +30,12 @@ Rails.application.routes.draw do
         get 'sarah-commands', action: :sarah_commands, as: :sarah_commands
       end
 
-      resources :reminders, only: [:create]
+      resources :reminders, only: :create
     end
   end
 
   # devise_for :users, controllers: { registrations: 'api/v1/users/registrations', sessions: 'users/sessions' }
-  devise_for :users, skip: [:sessions, :passwords, :registrations]
+  # devise_for :users, skip: [:sessions, :passwords, :registrations]
 
   mount ActionCable.server => '/cable'
 end
