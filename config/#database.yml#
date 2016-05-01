@@ -1,0 +1,20 @@
+default: &default
+  adapter: mysql2
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+  username: dot_api
+  password: dk38K#&MNae5NUkNc
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: dot_api_development
+
+test:
+  <<: *default
+  database: dot_api_test
+
+production:
+  <<: *default
+  database: dot_api_production
