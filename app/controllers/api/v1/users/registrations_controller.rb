@@ -14,18 +14,19 @@ end
 module Api
   module V1
     class Users::RegistrationsController < Devise::RegistrationsController
-      # respond_to :json
-
       # skip_before_action :verify_authenticity_token
-
-      # resource_description do
-      #   resource_id 'Users'
-      # end
 
       # before_action :configure_sign_up_params, only: [:create]
       # before_action :configure_account_update_params, only: [:update]
 
       api :POST, '/users', 'Create an User'
+      error code: 422, desc: 'Unprocessable entity'
+      error code: 201, desc: 'Created'
+      meta clients: [:android_application, :web_application], status: :pending
+      param :email,     String, desc: 'Email',     required: true
+      param :firstname, String, desc: 'Firstname', required: true
+      param :lastname,  String, desc: 'Lastname',  required: true
+      param :password,  String, desc: 'Password',  required: false
       def create
         user = User.new user_params
 
@@ -44,15 +45,18 @@ module Api
         # end
       end
 
-      api :PUT, '/users', 'Update an User'
-      def update
-        # super
-      end
-
-      # DELETE /resource
-      # def destroy
+      # api :PUT, '/users', 'Update an User'
+      # def update
       #   super
       # end
+
+      api :DELETE, '/users', 'Delete an User'
+      desc 'Only admin User is allowed to delete other Users'
+      meta clients: [:android_application, :web_application], status: :pending
+      param :user_id, Integer, desc: 'User ID to delete', required: true
+      def destroy
+        super
+      end
 
       # GET /resource/cancel
       # Forces the session data which is usually expired after sign

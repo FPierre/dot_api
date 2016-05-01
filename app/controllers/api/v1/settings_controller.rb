@@ -1,3 +1,5 @@
+require 'net/http'
+
 module Api
   module V1
     class SettingsController < ApplicationController
@@ -32,6 +34,22 @@ module Api
       meta clients: [:android_application, :web_application], status: :pending
       param :state, [:sleep, :active], desc: 'Weather display state', required: true
       def weather_state
+
+      end
+
+      def metting_room_state
+        params = { mode: params[:mode] }
+
+        x = Net::HTTP.post_form(URI.parse('http://10.33.0.39:8888/led.py'), params)
+
+        ap x
+      end
+
+      api :GET, '/settings/sarah-commands', 'Get the list of vocals commands for SARAH'
+      description 'Get a static list of available commands to talk with SARAH'
+      meta clients: [:android_application, :web_application], status: :pending
+      error code: 200, desc: 'Ok'
+      def sarah_commands
 
       end
 

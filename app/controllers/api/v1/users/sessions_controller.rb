@@ -1,13 +1,14 @@
 module Api
   module V1
     class Users::SessionsController < Devise::SessionsController
-      # resource_description do
-      #   resource_id 'Users'
-      # end
-
       # before_action :configure_sign_in_params, only: [:create]
 
       api :POST, '/users/sign_in', 'Connect an User'
+      error code: 422, desc: 'Unprocessable entity'
+      error code: 200, desc: 'Ok'
+      meta clients: [:android_application, :web_application], status: :pending
+      param :email,    String, desc: 'Email',    required: true
+      param :password, String, desc: 'Password', required: true
       def create
         super
       end

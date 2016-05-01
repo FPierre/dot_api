@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :reminders
 
-  validates :firstname, :lastname, presence: true
+  validates :firstname, :lastname, :email, presence: true
 
   def active_for_authentication?
     super && approved?
