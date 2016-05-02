@@ -3,7 +3,7 @@ require 'net/http'
 module Api
   module V1
     class SettingsController < ApplicationController
-      acts_as_token_authentication_handler_for User
+      before_action :authenticate
 
       api :POST, '/settings/sarah-state/:state', 'Set the SARAH listening state'
       description 'Set the SARAH listening state if user has the rights'

@@ -1,11 +1,7 @@
 module Api
   module V1
     class RemindersController < ApplicationController
-      # acts_as_token_authentication_handler_for User, fallback: :none
-      # acts_as_token_authentication_handler_for User
-
-      acts_as_token_authentication_handler_for User, fallback_to_devise: false
-      # before_filter :authenticate_user!
+      before_action :authenticate
 
       api :POST, '/reminders', 'Create a Reminder'
       error code: 422, desc: 'Unprocessable entity'

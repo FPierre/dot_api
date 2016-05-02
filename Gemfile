@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'simple_token_authentication', git: 'git://github.com/gonzalo-bulnes/simple_token_authentication.git', branch: 'master'
+# gem 'simple_token_authentication', git: 'git://github.com/gonzalo-bulnes/simple_token_authentication.git', branch: 'master'
 
 # gem 'bcrypt', '~> 3.1.7'
 # gem 'rack-cors'
