@@ -2,7 +2,6 @@ require 'tweetstream'
 
 ENV['RAILS_ENV'] ||= 'production'
 
-# root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 root = File.expand_path(File.join(File.dirname(__FILE__), '.'))
 
 require File.join(root, 'config', 'environment')
@@ -35,5 +34,13 @@ daemon.track('SNCF') do |tweet|
 
   puts "#{tweet.text}"
 
-  ActionCable.server.broadcast 'notification_channel', author: 'SNCF', message: tweet.text, duration: 10000
+  notification = {
+    content: tweet.text,
+    created_at: Datetime.now,
+    duration: 10000,
+    priority: 3,
+    user: 'Twitter Daemon'
+  }
+
+  # ActionCable.server.broadcast 'notification_channel', notification
 end

@@ -8,7 +8,7 @@ class ResizeChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  def speak resize
+  def speak data
     ActionCable.server.broadcast 'resize_channel', resize: data['resize']
   end
 end

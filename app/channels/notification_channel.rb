@@ -8,7 +8,7 @@ class NotificationChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  def speak notification
+  def speak data
     ActionCable.server.broadcast 'notification_channel', notification: data['notification']
   end
 end

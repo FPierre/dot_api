@@ -8,7 +8,7 @@ class PathChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  def speak path
+  def speak data
     ActionCable.server.broadcast 'path_channel', path: data['path']
   end
 end

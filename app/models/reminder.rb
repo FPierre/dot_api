@@ -14,5 +14,5 @@ class Reminder < ApplicationRecord
   }
   validates :user, presence: true
 
-  # after_create -> { ActionCable.server.broadcast 'reminder_channel', { reminder: self.as_json }}
+  after_create -> { ActionCable.server.broadcast 'notification_channel', notification: self.as_json }
 end
