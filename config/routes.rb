@@ -19,10 +19,10 @@ Rails.application.routes.draw do
       end
 
       scope 'settings', controller: :settings do
-        # post 'reminders-state', action: :reminders_state, as: :reminders_state
-        # post 'sarah-state', action: :sarah_state, as: :sarah_state
-        # post 'twitter-state', action: :twitter_state, as: :twitter_state
-        # post 'weather-state', action: :weather_state, as: :weather_state
+        post 'reminders-state', action: :reminders_state, as: :reminders_state
+        post 'sarah-state', action: :sarah_state, as: :sarah_state
+        post 'twitter-state', action: :twitter_state, as: :twitter_state
+        post 'weather-state', action: :weather_state, as: :weather_state
         # post 'metting-room-state', action: :metting_room_state, as: :metting_room_state
         # get 'sarah-commands', action: :sarah_commands, as: :sarah_commands
       end
