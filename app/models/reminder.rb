@@ -14,5 +14,12 @@ class Reminder < ApplicationRecord
   }
   validates :user, presence: true
 
-  after_create -> { ActionCable.server.broadcast 'notification_channel', notification: self.as_json }
+  after_create -> {
+    ActionCable.server.broadcast 'notification_channel', notification: self.to_serialize
+  }
+
+  private
+    def to_serialize
+      ActiveModelSerializers::SerializableResource.new(self, {}).as_json
+    end
 end

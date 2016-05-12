@@ -7,7 +7,7 @@ ruby '2.3.0'
 
 # gem 'bcrypt', '~> 3.1.7'
 # gem 'rack-cors'
-gem 'active_model_serializers', '~> 0.10.0.rc5'
+gem 'active_model_serializers', git: 'https://github.com/rails-api/active_model_serializers', branch: 'master'
 gem 'apipie-rails'
 gem 'avatarly', '~> 1.4'
 gem 'awesome_print'

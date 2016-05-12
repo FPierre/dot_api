@@ -2,7 +2,7 @@ module Api
   module V1
     module Users
       class UsersController < ApplicationController
-        before_action :authenticate, :authorize
+        # before_action :authenticate, :authorize
 
         api :GET, '/users', 'Get all Users'
         desc "Return a list of all Users if the current user is administrator."
