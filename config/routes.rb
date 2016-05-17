@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tests
   apipie
 
   namespace :api do
@@ -6,7 +7,7 @@ Rails.application.routes.draw do
       get 'ping', to: 'ping#ping', as: :ping
 
       devise_scope :user do
-        resources :users, only: :index, controller: 'users/users'
+        resources :users, only: [:show, :index], controller: 'users/users'
         # post 'sign_in', to: 'users/sessions#create', as: :user_session
         # delete 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
         # delete 'users', to: 'users/registrations#destroy', as: :destroy_user_registration
@@ -18,21 +19,22 @@ Rails.application.routes.draw do
         get 'path/from/:from/to/:to', action: :path
       end
 
-      scope 'settings', controller: :settings do
-        post 'reminders-state', action: :reminders_state, as: :reminders_state
-        post 'sarah-state', action: :sarah_state, as: :sarah_state
-        post 'twitter-state', action: :twitter_state, as: :twitter_state
-        post 'weather-state', action: :weather_state, as: :weather_state
-        # post 'metting-room-state', action: :metting_room_state, as: :metting_room_state
-        # get 'sarah-commands', action: :sarah_commands, as: :sarah_commands
-      end
+      # scope 'settings', controller: :settings do
+      #   post 'reminders-state', action: :reminders_state, as: :reminders_state
+      #   post 'sarah-state', action: :sarah_state, as: :sarah_state
+      #   post 'twitter-state', action: :twitter_state, as: :twitter_state
+      #   post 'weather-state', action: :weather_state, as: :weather_state
+      #   # post 'metting-room-state', action: :metting_room_state, as: :metting_room_state
+      #   # get 'sarah-commands', action: :sarah_commands, as: :sarah_commands
+      # end
 
-      resources :reminders, only: :create
+      resources :settings, only: [:show, :update]
+      resources :reminders, only: [:index, :show, :create, :destroy]
     end
   end
 
-  # devise_for :users, controllers: { registrations: 'api/v1/users/registrations', sessions: 'users/sessions' }
-  # devise_for :users, skip: [:sessions, :passwords, :registrations]
+  devise_for :users, controllers: { registrations: 'api/v1/users/registrations', sessions: 'api/v1/users/sessions' }
+  devise_for :users, skip: [:sessions, :passwords, :registrations]
 
   root 'ping#ping'
 
