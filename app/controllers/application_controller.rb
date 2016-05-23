@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   # http://sourcey.com/building-the-prefect-rails-5-api-only-app/
-  include ActionController::HttpAuthentication::Token::ControllerMethods
+  # include ActionController::HttpAuthentication::Token::ControllerMethods
 
   attr_accessor :current_user
 
@@ -9,10 +9,14 @@ class ApplicationController < ActionController::API
       authenticate_token || render_unauthorized
     end
 
+    # Token token=PVw-GHaSPtDqWeQUgAVG
     def authenticate_token
-      authenticate_with_http_token do |token, options|
-        @current_user = User.find_by authentication_token: token
-      end
+      # authenticate_with_http_token do |token, options|
+        # user = User.find_by authentication_token: token, email: params[:email]
+        @current_user = User.find_by authentication_token: params[:token], email: params[:email]
+
+        sign_in(@current_user, store: false) if @current_user
+      # end
     end
 
     def render_unauthorized realm = 'Application'
@@ -21,11 +25,11 @@ class ApplicationController < ActionController::API
     end
 
     def authorize
-      authorize_admin || render_forbidden
+      @current_user.approved? || render_forbidden
     end
 
     def authorize_admin
-      @current_user.present? && @current_user.admin?
+      (self.authorize && @current_user.admin?) || render_forbidden
     end
 
     def render_forbidden realm = 'Application'

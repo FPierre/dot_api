@@ -5,44 +5,21 @@ module Api
     class SettingsController < ApplicationController
       # before_action :authenticate, :authorize_admin
 
+      before_action :set_setting, only: [:show, :update]
+
+      api :GET, '/users', 'Get a Setting'
       def show
-        render json: Setting.first
+        render json: @setting
       end
 
-      api :POST, '/settings/sarah-state', 'Set the SARAH listening state'
-      description 'Set the SARAH listening state if user has the rights'
+      api :PUT, '/settings/:id', 'Update a Setting'
       meta clients: [:android_application, :web_application], status: :pending
-      param :state, [:sleep, :active], desc: 'Listening state', required: true
-      def sarah_state
-        ap 'API::V1::SettingsController#sarah_state'
-
-      end
-
-      api :POST, '/settings/twitter-state', 'Set the Twitter daemon state'
-      description 'Set the Twitter daemon state if user has the rights'
-      meta clients: [:android_application, :web_application], status: :pending
-      param :state, [:sleep, :active], desc: 'Daemon state', required: true
-      def twitter_state
-        ap 'API::V1::SettingsController#twitter_state'
-
-      end
-
-      api :POST, '/settings/reminders-state', 'Set the Reminders display state'
-      description 'Set the Reminders display state if user has the rights'
-      meta clients: [:android_application, :web_application], status: :pending
-      param :state, [:sleep, :active], desc: 'Reminder display state', required: true
-      def reminders_state
-        ap 'API::V1::SettingsController#reminders_state'
-
-      end
-
-      api :POST, '/settings/weather-state', 'Set the weather display state'
-      description 'Set the weather display state if user has the rights'
-      meta clients: [:android_application, :web_application], status: :pending
-      param :state, [:sleep, :active], desc: 'Weather display state', required: true
-      def weather_state
-        ap 'API::V1::SettingsController#weather_state'
-
+      def update
+        if @setting.update setting_params
+          render json: @setting, status: :ok
+        else
+          render json: @setting.errors, status: :unprocessable_entity
+        end
       end
 
       # def meeting_room_state
@@ -62,8 +39,12 @@ module Api
       # end
 
       private
-        def settings_params
-          params.permit :state
+        def set_setting
+          @setting = Setting.find params[:id]
+        end
+
+        def setting_params
+          params.permit :reminders_enabled, :sarah_enabled, :twitter_enabled, :weather_current_day_only, :weather_enabled
         end
     end
   end

@@ -26,9 +26,11 @@ ul.breadcrumb
     .col.s12
       ul.collapsible data-collapsible='expandable'
         - api[:methods].each do |m|
+
+          / = ap(m).html_safe
+
           - if !m[:show]
             - next
-
 
           - m[:apis].each do |a|
             li
@@ -117,6 +119,17 @@ ul.breadcrumb
                             tr class="#{(400..511).include?(error[:code]) ? 'error' : 'success'}"
                               td = error[:code]
                               td = error[:description]
+
+                - if m[:examples].present?
+                  .row
+                    .col.s12
+                      h3 Result
+
+                  .row
+                    .col.s12
+                      - m[:examples].each do |example|
+                        pre
+                          == example
 
 - unless content_for(:apipie_footer) == @doc[:copyright]
   = content_for :apipie_footer, raw(@doc[:copyright])

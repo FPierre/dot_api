@@ -8,15 +8,19 @@ class User < ApplicationRecord
 
   validates :firstname, :lastname, :email, presence: true
 
-  def active_for_authentication?
-    super && approved?
+  def to_s
+    %Q(#{self.firstname} #{self.lastname})
   end
 
-  def inactive_message
-    if !approved?
-      :not_approved
-    else
-      super
-    end
-  end
+  # def active_for_authentication?
+  #   super && approved?
+  # end
+
+  # def inactive_message
+  #   if !approved?
+  #     :not_approved
+  #   else
+  #     super
+  #   end
+  # end
 end

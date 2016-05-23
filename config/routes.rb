@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get 'ping', to: 'ping#ping', as: :ping
 
       devise_scope :user do
-        resources :users, only: [:show, :index], controller: 'users/users'
+        resources :users, only: [:show, :index, :update], controller: 'users/users'
         # post 'sign_in', to: 'users/sessions#create', as: :user_session
         # delete 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
         # delete 'users', to: 'users/registrations#destroy', as: :destroy_user_registration

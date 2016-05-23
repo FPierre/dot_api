@@ -1,8 +1,6 @@
 module Api
   module V1
     class Users::SessionsController < Devise::SessionsController
-      # before_action :configure_sign_in_params, only: [:create]
-
       api :POST, '/users/sign_in', 'Connect an User'
       error code: 422, desc: 'Unprocessable entity'
       error code: 200, desc: 'Ok'
