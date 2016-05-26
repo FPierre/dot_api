@@ -6,12 +6,14 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'ping', to: 'ping#ping', as: :ping
 
+      get 'users/current-user', to: 'users/users#current_user', as: :current_user
+
       devise_scope :user do
         resources :users, only: [:show, :index, :update], controller: 'users/users'
-        # post 'sign_in', to: 'users/sessions#create', as: :user_session
+        post 'sign_in', to: 'users/sessions#create', as: :user_session
         # delete 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
         # delete 'users', to: 'users/registrations#destroy', as: :destroy_user_registration
-        # post 'users', to: 'users/registrations#create', as: :user_registration
+        post 'users', to: 'users/registrations#create', as: :user_registration
         # put 'users', to: 'users/registrations#update'
       end
 

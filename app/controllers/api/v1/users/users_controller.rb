@@ -7,6 +7,11 @@ module Api
 
         before_action :set_user, only: [:show, :update]
 
+        def current_user
+          ap @current_user
+          # render json: @current_user
+        end
+
         api :GET, '/users', 'Get an User'
         # desc "Return a list of all Users if the current user is administrator."
         # error code: 403, desc: 'Forbidden'
@@ -25,7 +30,7 @@ module Api
           render json: User.all
         end
 
-        api :PUT, '/users/:id', 'Update a User'
+        api :PUT, '/users/:id', 'Update an User'
         meta clients: [:android_application, :web_application], status: :pending
         def update
           if @user.update user_params

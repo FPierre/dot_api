@@ -6,11 +6,20 @@ class ApplicationController < ActionController::API
 
   protected
     def authenticate
-      authenticate_token || render_unauthorized
+      authenticate_by_token || render_unauthorized
     end
 
+    def authorize
+      @current_user.approved? || render_forbidden
+    end
+
+    def authorize_admin
+      (self.authorize && @current_user.admin?) || render_forbidden
+    end
+
+  private
     # Token token=PVw-GHaSPtDqWeQUgAVG
-    def authenticate_token
+    def authenticate_by_token
       # authenticate_with_http_token do |token, options|
         # user = User.find_by authentication_token: token, email: params[:email]
         @current_user = User.find_by authentication_token: params[:token], email: params[:email]
@@ -22,14 +31,6 @@ class ApplicationController < ActionController::API
     def render_unauthorized realm = 'Application'
       self.headers['WWW-Authenticate'] = %(Token realm="#{realm.gsub(/"/, "")}")
       render json: 'Unauthorized', status: :unauthorized
-    end
-
-    def authorize
-      @current_user.approved? || render_forbidden
-    end
-
-    def authorize_admin
-      (self.authorize && @current_user.admin?) || render_forbidden
     end
 
     def render_forbidden realm = 'Application'

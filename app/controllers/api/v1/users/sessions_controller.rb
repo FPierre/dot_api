@@ -8,7 +8,18 @@ module Api
       param :email,    String, desc: 'Email',    required: true
       param :password, String, desc: 'Password', required: true
       def create
-        super
+        ap 'API::V1::Users::SessionsController#create'
+        # https://github.com/plataformatec/devise/blob/master/app/controllers/devise/sessions_controller.rb#L16
+        # super
+
+        user = User.find_by(email: params[:email])
+
+        if user.present? && user.valid_password?(params[:password])
+          sign_in(user, store: false)
+          render json: user, status: :ok
+        else
+          render json: '', status: :unauthorized
+        end
       end
 
       # DELETE /resource/sign_out
