@@ -7,11 +7,39 @@ module Api
 
       api :GET, '/reminders', 'Get all Reminders'
       meta clients: [:android_application, :web_application], status: :pending
+      example <<-EOS
+        {
+          "data": [
+            {
+              "id": "1",
+              "type": "reminders",
+              "attributes": {
+                "content": "content",
+                "created-at": "2016-05-01T15:50:41.000Z",
+                "display-at": null,
+                "duration": 1,
+                "priority": 1,
+                "title": null,
+                "type": "memo",
+                "user": "Pierre Flauder"
+              }
+            }
+          ],
+          "links": {
+            "self": "http://localhost:4000/api/v1/reminders?page%5Bnumber%5D=2&page%5Bsize%5D=2",
+            "first": "http://localhost:4000/api/v1/reminders?page%5Bnumber%5D=1&page%5Bsize%5D=2",
+            "prev": "http://localhost:4000/api/v1/reminders?page%5Bnumber%5D=1&page%5Bsize%5D=2",
+            "next": "http://localhost:4000/api/v1/reminders?page%5Bnumber%5D=3&page%5Bsize%5D=2",
+            "last": "http://localhost:4000/api/v1/reminders?page%5Bnumber%5D=3&page%5Bsize%5D=2"
+          }
+        }
+      EOS
       def index
-        render json: Reminder.all
+        render json: Reminder.page(1)
       end
 
-      api :GET, '/reminders', 'Get a Reminder'
+      api :GET, '/reminders/:id', 'Get a Reminder'
+      meta clients: [:android_application, :web_application], status: :pending
       example <<-EOS
         {
           "data": {
@@ -30,7 +58,6 @@ module Api
           }
         }
       EOS
-      meta clients: [:android_application, :web_application], status: :pending
       def show
         render json: @reminder
       end
