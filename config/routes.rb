@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'ping', to: 'ping#ping', as: :ping
 
+      get 'voice-commands', to: 'voice_commands#index'
+
+      # TODO Utile ?
       get 'users/current-user', to: 'users/users#current_user', as: :current_user
 
       devise_scope :user do

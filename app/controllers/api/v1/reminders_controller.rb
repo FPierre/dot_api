@@ -22,6 +22,8 @@ module Api
                 "title": null,
                 "type": "memo",
                 "user": "Pierre Flauder"
+                "displayed": false,
+                "displayed-ago": "environ 9 heures"
               }
             }
           ],
@@ -35,7 +37,7 @@ module Api
         }
       EOS
       def index
-        render json: Reminder.page(1)
+        render json: Reminder.order(created_at: :desc).page(1)
       end
 
       api :GET, '/reminders/:id', 'Get a Reminder'
@@ -43,17 +45,19 @@ module Api
       example <<-EOS
         {
           "data": {
-            "id": "1",
+            "id": "9",
             "type": "reminders",
             "attributes": {
-              "content": "content",
-              "created-at": "2016-05-01T15:46:42.000Z",
-              "display-at": null,
-              "duration": 1,
-              "priority": 2,
-              "title": null,
-              "type": "memo",
-              "user": "Pierre Flauder"
+              "content": "test2",
+              "created-at": "2016-05-28T15:58:06.000Z",
+              "displayed-at": "2016-05-29T00:00:00.000Z",
+              "duration": 10,
+              "priority": 1,
+              "title": "test2",
+              "type": "alert",
+              "user": "Pierre Flauder",
+              "displayed": false,
+              "displayed-ago": "environ 9 heures"
             }
           }
         }
