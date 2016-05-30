@@ -1,5 +1,6 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
-  resources :tests
   apipie
 
   namespace :api do
@@ -43,5 +44,6 @@ Rails.application.routes.draw do
 
   root 'ping#ping'
 
+  mount Sidekiq::Web => '/sidekiq'
   mount ActionCable.server => '/cable'
 end
