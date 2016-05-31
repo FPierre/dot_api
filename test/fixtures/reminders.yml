@@ -1,0 +1,9 @@
+reminder_1:
+  id: 1
+  content: content
+  created_at: 2016-05-31
+  displayed_at: 2016-05-31
+  duration: 1
+  priority: 1
+  title: title
+  user: user_1
