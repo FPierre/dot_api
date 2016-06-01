@@ -1,7 +1,23 @@
-user_1:
+user_admin:
   admin: true
   approved: true
   authentication_token: AN1p7ixAdGTAPANpRRjQ
   email: pflauder@gmail.com
   firstname: Pierre
   lastname: Flauder
+
+user_approved:
+  admin: false
+  approved: true
+  authentication_token: 6wLHceWh2YajcnvVT-Rw
+  email: tallardsaintalban@gmail.com
+  firstname: Thierry
+  lastname: Allard
+
+user_unapproved:
+  admin: false
+  approved: false
+  authentication_token: LuyrPLvZaEhJpHb6TNbm
+  email: njournaud@gmail.com
+  firstname: Nicolas
+  lastname: Journaud

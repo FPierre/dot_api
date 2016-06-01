@@ -8,6 +8,8 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 
+  attr_accessor :user_admin
+
   def api_url_prefix
     'api/v1'
   end
@@ -18,5 +20,13 @@ class ActiveSupport::TestCase
 
   def api_controller resource_controller
     "#{api_url_prefix}/#{resource_controller}"
+  end
+
+  def request_with_token user_status
+    user = users("user_#{user_status}")
+
+    with_options params: { email: user.email, token: user.authentication_token } do |params|
+      yield params
+    end
   end
 end
