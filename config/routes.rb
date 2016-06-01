@@ -14,12 +14,17 @@ Rails.application.routes.draw do
         # put 'users', to: 'users/registrations#update'
       end
 
-      scope 'dashboard', controller: :dashboard do
+      namespace :screens do
         get 'path/from/:from/to/:to', action: :path
+        get 'resize/zone/:zone/size/:size', action: :resize
       end
 
-      get 'ping', to: 'ping#ping', as: :ping
-      resources :voice_controls, only: [:index, :post]
+      namespace :tests do
+        get 'ping'
+        post 'voice'
+      end
+
+      resources :voice_commands, only: :index
       resources :settings, only: [:show, :update]
       resources :reminders, only: [:index, :show, :create, :destroy]
     end
@@ -28,7 +33,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'api/v1/users/registrations', sessions: 'api/v1/users/sessions' }
   devise_for :users, skip: [:sessions, :passwords, :registrations]
 
-  root 'ping#ping'
+  root 'tests#ping'
 
   mount Sidekiq::Web => '/sidekiq'
   mount ActionCable.server => '/cable'

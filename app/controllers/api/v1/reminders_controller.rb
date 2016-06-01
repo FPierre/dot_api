@@ -1,8 +1,7 @@
 module Api
   module V1
     class RemindersController < ApplicationController
-      # before_action :authenticate, :authorize
-
+      before_action :authenticate, :authorize
       before_action :set_reminder, only: [:show, :destroy]
 
       api :GET, '/reminders', 'Get all Reminders'

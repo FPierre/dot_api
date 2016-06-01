@@ -8,7 +8,6 @@ module Api
         before_action :set_user, only: [:show, :update]
 
         def current_user
-          ap @current_user
           # render json: @current_user
         end
 

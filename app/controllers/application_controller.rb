@@ -18,14 +18,9 @@ class ApplicationController < ActionController::API
     end
 
   private
-    # Token token=PVw-GHaSPtDqWeQUgAVG
     def authenticate_by_token
-      # authenticate_with_http_token do |token, options|
-        # user = User.find_by authentication_token: token, email: params[:email]
-        @current_user = User.find_by authentication_token: params[:token], email: params[:email]
-
-        sign_in(@current_user, store: false) if @current_user
-      # end
+      @current_user = User.find_by authentication_token: params[:token], email: params[:email]
+      sign_in(@current_user, store: false) if @current_user
     end
 
     def render_unauthorized realm = 'Application'

@@ -1,7 +1,7 @@
 module Api
   module V1
-    class DashboardController < ApplicationController
-      api :GET, '/dashboard/path/from/:from/to/:to', 'Display the path between two cities'
+    class ScreensController < ApplicationController
+      api :GET, '/screens/path/from/:from/to/:to', 'Display the path between two cities'
       description 'Make a request to the Google Map API to search the car route between the city "from" and the city "to".'
       error code: 400, desc: 'Bad request'
       error code: 200, desc: 'Ok'
@@ -40,6 +40,15 @@ module Api
         ActionCable.server.broadcast 'path_channel', path: { from: from, to: to }
 
         head :ok
+      end
+
+      api :GET, '/screens/resize/zone/:zone/size/:size', 'Resize a zone'
+      param :zone, [:one, :two],   desc: 'Zone ID', required: true
+      param :size, [:full, :half], desc: 'Size',    required: true
+      def resize
+        if params[:zone].present? && params[:size].present?
+          ActionCable.server.broadcast 'resize_channel', zone: params[:zone], size: params[:size]
+        end
       end
     end
   end
