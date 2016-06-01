@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160529072606) do
+ActiveRecord::Schema.define(version: 20160601132050) do
 
   create_table "reminders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -31,8 +31,10 @@ ActiveRecord::Schema.define(version: 20160529072606) do
     t.boolean  "reminders_enabled",        default: true
     t.boolean  "weather_enabled",          default: true
     t.boolean  "weather_current_day_only", default: true
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.boolean  "room_occupied",            default: false
+    t.boolean  "screen_guest_enabled",     default: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

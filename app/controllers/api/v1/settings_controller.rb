@@ -3,16 +3,32 @@ require 'net/http'
 module Api
   module V1
     class SettingsController < ApplicationController
-      # before_action :authenticate, :authorize_admin
-
+      before_action :authenticate, :authorize_admin
       before_action :set_setting, only: [:show, :update]
 
-      api :GET, '/users', 'Get a Setting'
+      api :GET, '/settings/1', 'Get the Setting object'
+      example <<-EOS
+        {
+          "data": {
+            "id": "1",
+            "type": "settings",
+            "attributes": {
+              "reminders-enabled": false,
+              "room-occupied": false,
+              "sarah-enabled": false,
+              "screen-guest-enabled": false,
+              "twitter-enabled": false,
+              "weather-current-day-only": true,
+              "weather-enabled": false
+            }
+          }
+        }
+      EOS
       def show
         render json: @setting
       end
 
-      api :PUT, '/settings/:id', 'Update a Setting'
+      api :PUT, '/settings/1', 'Update the Setting object'
       meta clients: [:android_application, :web_application], status: :pending
       def update
         if @setting.update setting_params
@@ -40,7 +56,7 @@ module Api
 
       private
         def set_setting
-          @setting = Setting.find params[:id]
+          @setting = Setting.find 1
         end
 
         def setting_params

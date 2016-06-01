@@ -5,13 +5,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get 'ping', to: 'ping#ping', as: :ping
-
-      get 'voice-commands', to: 'voice_commands#index'
-
-      # TODO Utile ?
-      get 'users/current-user', to: 'users/users#current_user', as: :current_user
-
       devise_scope :user do
         resources :users, only: [:show, :index, :update], controller: 'users/users'
         post 'sign_in', to: 'users/sessions#create', as: :user_session
@@ -25,15 +18,8 @@ Rails.application.routes.draw do
         get 'path/from/:from/to/:to', action: :path
       end
 
-      # scope 'settings', controller: :settings do
-      #   post 'reminders-state', action: :reminders_state, as: :reminders_state
-      #   post 'sarah-state', action: :sarah_state, as: :sarah_state
-      #   post 'twitter-state', action: :twitter_state, as: :twitter_state
-      #   post 'weather-state', action: :weather_state, as: :weather_state
-      #   # post 'metting-room-state', action: :metting_room_state, as: :metting_room_state
-      #   # get 'sarah-commands', action: :sarah_commands, as: :sarah_commands
-      # end
-
+      get 'ping', to: 'ping#ping', as: :ping
+      resources :voice_controls, only: [:index, :post]
       resources :settings, only: [:show, :update]
       resources :reminders, only: [:index, :show, :create, :destroy]
     end
