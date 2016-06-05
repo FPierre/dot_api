@@ -24,9 +24,11 @@ Rails.application.routes.draw do
         post 'voice'
       end
 
-      resources :voice_commands, only: :index
-      resources :settings, only: [:show, :update]
+      resources :raspberries, only: [:index, :show]
       resources :reminders, only: [:index, :show, :create, :destroy]
+      resources :settings, only: [:show, :update]
+      resources :voice_commands, only: :index
+      resources :weather, only: :show
     end
   end
 
