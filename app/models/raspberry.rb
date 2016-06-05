@@ -1,0 +1,2 @@
+class Raspberry < ApplicationRecord
+end
