@@ -1,16 +1,58 @@
 module Api
   module V1
     class RaspberriesController < ApplicationController
+      # before_action :authenticate, :authorize_admin
       before_action :set_raspberry, only: [:show, :update, :destroy]
 
+      api :GET, '/raspberries', 'Get all Raspberries'
+      meta clients: [:web_application], status: :pending
+      example <<-EOS
+        {
+          "data": [
+            {
+              "id": "1",
+              "type": "raspberries",
+              "attributes": {
+                "created-at": "2016-06-06T21:42:53.000+02:00",
+                "ip-address": "74.235.83.147",
+                "mac-address": "24:63:51:7D:1C:02",
+                "name": "Raspberry 1"
+            }
+          ]
+        }
+      EOS
       def index
         render json: Raspberry.all
       end
 
+      api :GET, '/raspberries/:id', 'Get a Raspberry'
+      meta clients: [:web_application], status: :pending
+      example <<-EOS
+        {
+          "data": {
+            "id": "1",
+            "type": "raspberries",
+            "attributes": {
+              "created-at": "2016-06-06T21:42:53.000+02:00",
+              "ip-address": "74.235.83.147",
+              "mac-address": "24:63:51:7D:1C:02",
+              "name": "Raspberry 1"
+            }
+          }
+        }
+      EOS
       def show
         render json: @raspberry
       end
 
+      api :POST, '/raspberries', 'Create a Raspberry'
+      description "Create a Raspberry"
+      error code: 201, desc: 'Created'
+      error code: 422, desc: 'Unprocessable entity'
+      meta clients: [:web_application], status: :pending
+      param :name,        String, desc: 'Name',        required: true
+      param :ip_address,  String, desc: 'IP address',  required: true
+      param :mac_address, String, desc: 'MAC address', required: true
       def create
         raspberry = Raspberry.new raspberry_params
 
@@ -29,6 +71,9 @@ module Api
         end
       end
 
+      api :DELETE, '/raspberries/:id', 'Delete a Raspberry'
+      error code: 204, desc: 'No Content'
+      meta clients: [:web_application], status: :pending
       def destroy
         @raspberry.destroy
       end
@@ -39,7 +84,7 @@ module Api
         end
 
         def raspberry_params
-          params.fetch :raspberry, {}
+          params.permit :name, :ip_address, :mac_address
         end
     end
   end
