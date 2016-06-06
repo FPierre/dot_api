@@ -1,38 +1,20 @@
-ul.breadcrumb
-  li.active
-    a href="#{@doc[:doc_url]}#{@doc[:link_extension]}"
-      = @doc[:name]
-      = @doc[:resources].values.first && @doc[:resources].values.first[:version]
-
-  = render(partial: 'languages', locals: { doc_url: @doc[:doc_url] })
-
-  - if @versions && @versions.size > 1
-    li.pull-right
-      = @versions.collect { |v| link_to v, Apipie.full_url(v+@doc[:link_extension]) }.join(' / ').html_safe
-
-.row
-  .col.s12
-    h1.page-header = t('apipie.resources')
-    div = raw @doc[:info]
-
-- @doc[:resources].each do |key, api|
-  / = ap(api).html_safe
+- @doc[:resources].each do |key, resource|
+  / = ap(resource).html_safe
   .row
     .col.s12
-      h2 = api[:name]
-      h3 = api[:short_description]
+      h1 = resource[:name]
+      h2 = resource[:short_description]
 
   .row
     .col.s12
       ul.collapsible data-collapsible='expandable'
-        - api[:methods].each do |m|
+        - resource[:methods].each do |method|
+          / = ap(method).html_safe
 
-          / = ap(m).html_safe
-
-          - if !m[:show]
+          - unless method[:show]
             - next
 
-          - m[:apis].each do |a|
+          - method[:apis].each do |a|
             li
               .collapsible-header
                 .row
@@ -49,12 +31,12 @@ ul.breadcrumb
                     = a[:short_description]
 
                   .col.s2.m1
-                    - if m.dig :metadata, :status
-                      - if m[:metadata][:status] == :pending
+                    - if method.dig :metadata, :status
+                      - if method[:metadata][:status] == :pending
                         = fa_icon 'question'
-                      - elsif m[:metadata][:status] == :ok
+                      - elsif method[:metadata][:status] == :ok
                         = fa_icon 'check', class: 'green-text text-lighten-2'
-                      - elsif m[:metadata][:status] == :ko
+                      - elsif method[:metadata][:status] == :ko
                         = fa_icon 'times', class: 'red-text text-lighten-2'
                     - else
                       = fa_icon 'question'
@@ -64,13 +46,13 @@ ul.breadcrumb
                   .col.s12.m9
                     h3 Full description
 
-                    = raw m[:full_description]
+                    = raw method[:full_description]
 
                   .col.s12.m3
                     h3 Clients
 
-                    - if m.dig :metadata, :clients
-                      - m[:metadata][:clients].each do |client|
+                    - if method.dig :metadata, :clients
+                      - method[:metadata][:clients].each do |client|
                         - if client == :android_application
                           = fa_icon 'android 2x'
                         - elsif client == :web_application
@@ -78,7 +60,7 @@ ul.breadcrumb
                         - elsif client == :sarah
                           = fa_icon 'microphone 2x'
 
-                - if m[:params].present?
+                - if method[:params].present?
                   .row
                     .col.s12
                       h3 Parameters
@@ -91,7 +73,7 @@ ul.breadcrumb
                             th data-field='required' Required
 
                         tbody
-                          - m[:params].each do |param|
+                          - method[:params].each do |param|
                             tr
                               td = param[:full_name]
                               td
@@ -103,7 +85,7 @@ ul.breadcrumb
                                 - else
                                   = fa_icon 'times-circle', class: 'fa-2x red-text text-lighten-2'
 
-                - if m[:errors].present?
+                - if method[:errors].present?
                   .row
                     .col.s12
                       h3 HTTP codes
@@ -115,19 +97,19 @@ ul.breadcrumb
                             th data-field='description' Description
 
                         tbody
-                          - m[:errors].each do |error|
+                          - method[:errors].each do |error|
                             tr class="#{(400..511).include?(error[:code]) ? 'error' : 'success'}"
                               td = error[:code]
                               td = error[:description]
 
-                - if m[:examples].present?
+                - if method[:examples].present?
                   .row
                     .col.s12
                       h3 Result
 
                   .row
                     .col.s12
-                      - m[:examples].each do |example|
+                      - method[:examples].each do |example|
                         pre
                           == example
 
