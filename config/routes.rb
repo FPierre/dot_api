@@ -24,7 +24,7 @@ Rails.application.routes.draw do
         post 'voice'
       end
 
-      resources :raspberries, only: [:index, :show]
+      resources :raspberries, only: [:index, :show, :create, :update, :destroy]
       resources :reminders, only: [:index, :show, :create, :destroy]
       resources :settings, only: [:show, :update]
       resources :voice_commands, only: :index

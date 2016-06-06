@@ -2,35 +2,35 @@ require 'test_helper'
 
 class Api::V1::RaspberriesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @api_v1_raspberry = api_v1_raspberries(:one)
+    @raspberry = raspberries :raspberry_one
   end
 
-  test "should get index" do
+  test 'should get index' do
     get api_v1_raspberries_url
     assert_response :success
   end
 
-  test "should create api_v1_raspberry" do
-    assert_difference('Api::V1::Raspberry.count') do
-      post api_v1_raspberries_url, params: { api_v1_raspberry: {  } }
+  test 'should create raspberry' do
+    assert_difference('Raspberry.count') do
+      post api_v1_raspberries_url, params: { raspberry: {  } }
     end
 
     assert_response 201
   end
 
-  test "should show api_v1_raspberry" do
-    get api_v1_raspberry_url(@api_v1_raspberry)
+  test 'should show raspberry' do
+    get api_v1_raspberry_url(@raspberry)
     assert_response :success
   end
 
-  test "should update api_v1_raspberry" do
-    patch api_v1_raspberry_url(@api_v1_raspberry), params: { api_v1_raspberry: {  } }
+  test 'should update raspberry' do
+    patch api_v1_raspberry_url(@raspberry), params: { raspberry: {  } }
     assert_response 200
   end
 
-  test "should destroy api_v1_raspberry" do
-    assert_difference('Api::V1::Raspberry.count', -1) do
-      delete api_v1_raspberry_url(@api_v1_raspberry)
+  test 'should destroy raspberry' do
+    assert_difference('Raspberry.count', -1) do
+      delete api_v1_raspberry_url(@raspberry)
     end
 
     assert_response 204
