@@ -46,4 +46,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # http://stackoverflow.com/questions/35188892/request-origin-not-allowed-http-localhost3001-when-using-rails5-and-actionca
+  config.action_cable.allowed_request_origins = ['http://localhost:3001']
 end
