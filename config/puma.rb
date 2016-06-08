@@ -44,7 +44,7 @@ environment ENV.fetch("RAILS_ENV") { "production" }
 # end
 
 # bind 'unix:///tmp/dot_api.sock'
-bind 'unix:///tmp/sockets/puma.sock'
+bind 'unix:///var/www/dot_api/tmp/sockets/puma.sock'
 pidfile 'tmp/pids/puma.pid'
 state_path 'tmp/pids/puma.state'
 stdout_redirect 'log/puma.stdout.log', 'log/puma.stderr.log', true
