@@ -22,7 +22,7 @@ end
 #   head :ok
 # end
 
-daemon = TweetStream::Daemon.new('tracker', log_output: true)
+daemon = TweetStream::Daemon.new 'tracker', log_output: true
 
 daemon.on_inited do
   # ActiveRecord::Base.connection.reconnect!
@@ -30,8 +30,6 @@ daemon.on_inited do
 end
 
 daemon.track('SNCF') do |tweet|
-  # Status.create_from_tweet(tweet)
-
   puts "#{tweet.text}"
 
   notification = {
@@ -39,8 +37,8 @@ daemon.track('SNCF') do |tweet|
     created_at: Datetime.now,
     duration: 10000,
     priority: 3,
-    user: 'Twitter Daemon'
+    user: 'Twitter'
   }
 
-  # ActionCable.server.broadcast 'notification_channel', notification
+  ActionCable.server.broadcast 'notification_channel', notification
 end

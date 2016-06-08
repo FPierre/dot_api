@@ -28,7 +28,9 @@ gem 'sinatra', git: 'https://github.com/sinatra/sinatra', branch: 'master', requ
 gem 'slim', '~> 3.0', '>= 3.0.6'
 gem 'sqlite3'
 gem 'tweetstream'
-gem 'yahoo_weather'
+# gem 'yahoo-weather', '~> 1.2'
+
+# https://github.com/dlt/yahoo_weatherman
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -2,14 +2,10 @@ module Api
   module V1
     module Users
       class UsersController < ApplicationController
-        # before_action :authenticate
+        before_action :authenticate
         # before_action :authorize, only: :index
 
         before_action :set_user, only: [:show, :update]
-
-        def current_user
-          # render json: @current_user
-        end
 
         api :GET, '/users', 'Get an User'
         # desc "Return a list of all Users if the current user is administrator."

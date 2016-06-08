@@ -275,8 +275,6 @@ GEM
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    yahoo_weather (1.2.0)
-      rails (>= 4.1.0)
 
 PLATFORMS
   ruby
@@ -311,7 +309,6 @@ DEPENDENCIES
   sqlite3
   tweetstream
   tzinfo-data
-  yahoo_weather
 
 BUNDLED WITH
    1.11.2

@@ -1,6 +1,6 @@
 module Api
   module V1
-    class PingController < ApplicationController
+    class TestsController < ApplicationController
       before_action :authenticate, :authorize
 
       api :GET, '/ping', 'Get the API status'
