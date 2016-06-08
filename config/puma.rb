@@ -13,7 +13,7 @@ port        ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+environment ENV.fetch("RAILS_ENV") { "production" }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
@@ -42,6 +42,12 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # on_worker_boot do
 #   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 # end
+
+# bind 'unix:///tmp/dot_api.sock'
+bind 'unix:///tmp/sockets/puma.sock'
+pidfile 'tmp/pids/puma.pid'
+state_path 'tmp/pids/puma.state'
+stdout_redirect 'log/puma.stdout.log', 'log/puma.stderr.log', true
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
