@@ -13,7 +13,7 @@ port        ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "production" }
+environment ENV.fetch("RAILS_ENV") { "development" }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
@@ -43,7 +43,7 @@ environment ENV.fetch("RAILS_ENV") { "production" }
 #   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 # end
 
-bind 'unix:///var/www/dot_api/tmp/sockets/puma.sock'
+# bind 'unix:///var/www/dot_api/tmp/sockets/puma.sock'
 pidfile 'tmp/pids/puma.pid'
 state_path 'tmp/pids/puma.state'
 stdout_redirect 'log/puma.stdout.log', 'log/puma.stderr.log', true
