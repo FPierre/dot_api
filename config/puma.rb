@@ -43,7 +43,6 @@ environment ENV.fetch("RAILS_ENV") { "production" }
 #   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 # end
 
-# bind 'unix:///tmp/dot_api.sock'
 bind 'unix:///var/www/dot_api/tmp/sockets/puma.sock'
 pidfile 'tmp/pids/puma.pid'
 state_path 'tmp/pids/puma.state'
