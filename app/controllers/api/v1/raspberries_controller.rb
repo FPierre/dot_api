@@ -63,9 +63,11 @@ module Api
         end
       end
 
+      api :PUT, '/raspberries/:id', 'Update a Raspberry'
+      meta clients: [:android_application, :web_application], status: :pending
       def update
         if @raspberry.update raspberry_params
-          render json: @raspberry
+          render json: @raspberry, status: :ok
         else
           render json: @raspberry.errors, status: :unprocessable_entity
         end
