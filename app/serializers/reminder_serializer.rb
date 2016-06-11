@@ -12,11 +12,7 @@ class ReminderSerializer < ActiveModel::Serializer
   end
 
   def displayed
-    if object.displayed_at.present? && object.displayed_at > DateTime.new
-      false
-    else
-      true
-    end
+    (object.displayed_at && object.displayed_at > DateTime.now) ? false : true
   end
 
   def displayed_ago

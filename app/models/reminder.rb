@@ -14,8 +14,9 @@ class Reminder < ApplicationRecord
   }
   validates :user, presence: true
 
+  # PAS BESOIN before_save -> { self.displayed_at = DateTime.now unless self.displayed_at }
   # after_save -> { ActionCable.server.broadcast 'notification_channel', notification: self.to_serialize }
-  after_save -> { ReminderDisplayWorker.perform_at(self.displayed_at, self.id) }
+  after_save -> { ReminderDisplayWorker.perform_at(self.displayed_at, self.id) if self.displayed_at }
 
   def to_serialize
     ActiveModelSerializers::SerializableResource.new(self, {}).as_json
