@@ -72,10 +72,17 @@ module Api
       end
 
       api :DELETE, '/raspberries/:id', 'Delete a Raspberry'
-      error code: 204, desc: 'No Content'
-      meta clients: [:web_application], status: :pending
+      error code: 200, desc: 'Ok'
+      meta clients: [:android_application, :web_application], status: :pending
       def destroy
-        @raspberry.destroy
+        # ap 'API::V1::RaspberriesController#destroyed'
+        if @raspberry.destroy
+          # ap 'destroyed'
+          render json: @raspberry, status: :ok
+        else
+          # ap 'not destroyed'
+          render json: @raspberry.errors, status: :unprocessable_entity
+        end
       end
 
       private
@@ -84,7 +91,7 @@ module Api
         end
 
         def raspberry_params
-          params.permit :name, :ip_address, :mac_address
+          params.permit :ip_address, :mac_address, :name
         end
     end
   end
