@@ -1,7 +1,4 @@
 class ApplicationController < ActionController::API
-  # http://sourcey.com/building-the-prefect-rails-5-api-only-app/
-  # include ActionController::HttpAuthentication::Token::ControllerMethods
-
   attr_accessor :current_user
 
   protected
@@ -19,7 +16,7 @@ class ApplicationController < ActionController::API
 
   private
     def authenticate_by_token
-      @current_user = User.find_by authentication_token: params[:token], email: params[:email]
+      @current_user = User.find_by authentication_token: params[:user_token], email: params[:user_email]
       sign_in(@current_user, store: false) if @current_user
     end
 

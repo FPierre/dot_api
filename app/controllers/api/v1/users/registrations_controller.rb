@@ -49,13 +49,13 @@ module Api
         #   super
         # end
 
-        api :DELETE, '/users', 'Delete an User'
-        desc 'Only admin User is allowed to delete other Users'
-        meta clients: [:android_application, :web_application], status: :pending
-        param :user_id, Integer, desc: 'User ID to delete', required: true
-        def destroy
-          super
-        end
+        # api :DELETE, '/users', 'Delete an User'
+        # desc 'Only admin User is allowed to delete other Users'
+        # meta clients: [:android_application, :web_application], status: :pending
+        # param :user_id, Integer, desc: 'User ID to delete', required: true
+        # def destroy
+        #   super
+        # end
 
         # GET /resource/cancel
         # Forces the session data which is usually expired after sign
