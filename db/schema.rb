@@ -13,27 +13,27 @@
 
 ActiveRecord::Schema.define(version: 20160605185743) do
 
-  create_table "raspberries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "name",        null: false
-    t.string   "ip_address",  null: false
-    t.string   "mac_address", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "raspberries", force: :cascade do |t|
+    t.string   "name",        limit: 255, null: false
+    t.string   "ip_address",              null: false
+    t.string   "mac_address",             null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
-  create_table "reminders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "title"
-    t.string   "content",      limit: 75,             null: false
-    t.integer  "priority",                default: 3, null: false
-    t.integer  "user_id",                             null: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+  create_table "reminders", force: :cascade do |t|
+    t.string   "title",        limit: 255
+    t.string   "content",      limit: 75,              null: false
+    t.integer  "priority",                 default: 3, null: false
+    t.integer  "user_id",                              null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.datetime "displayed_at"
-    t.integer  "duration",     limit: 2,  default: 1, null: false
-    t.index ["user_id"], name: "index_reminders_on_user_id", using: :btree
+    t.integer  "duration",     limit: 2,   default: 1, null: false
+    t.index ["user_id"], name: "index_reminders_on_user_id"
   end
 
-  create_table "settings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "settings", force: :cascade do |t|
     t.boolean  "sarah_enabled",            default: true
     t.boolean  "twitter_enabled",          default: true
     t.boolean  "reminders_enabled",        default: true
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20160605185743) do
     t.boolean  "screen_guest_enabled",     default: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -61,11 +61,10 @@ ActiveRecord::Schema.define(version: 20160605185743) do
     t.boolean  "admin",                  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["approved"], name: "index_users_on_approved", using: :btree
-    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["approved"], name: "index_users_on_approved"
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "reminders", "users"
 end
