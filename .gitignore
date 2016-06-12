@@ -25,6 +25,7 @@ config/secrets.yml
 
 public/images
 public/system
+public/assets
 
 tracker.output
 # Ignore application configuration
