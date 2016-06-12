@@ -50,6 +50,21 @@ module Api
           ActionCable.server.broadcast 'resize_channel', zone: params[:zone], size: params[:size]
         end
       end
+
+      api :GET, '/screens/team', 'Screen to team mode'
+      def team
+        ActionCable.server.broadcast 'screen_mode_channel', mode: :team
+      end
+
+      api :GET, '/screens/news', 'Screen to news mode'
+      def news
+        ActionCable.server.broadcast 'screen_mode_channel', mode: :news
+      end
+
+      api :GET, '/screens/guest', 'Screen to guest mode'
+      def guest
+        ActionCable.server.broadcast 'screen_mode_channel', mode: :guest
+      end
     end
   end
 end

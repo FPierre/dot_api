@@ -16,8 +16,11 @@ Rails.application.routes.draw do
       end
 
       namespace :screens do
-        get 'path/from/:from/to/:to', action: :path
-        get 'resize/zone/:zone/size/:size', action: :resize
+        get 'path/from/:from/to/:to', action: 'path'
+        get 'resize/zone/:zone/size/:size', action: 'resize'
+        get 'team'
+        get 'news'
+        get 'guest'
       end
 
       namespace :tests do
