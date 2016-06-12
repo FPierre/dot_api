@@ -27,3 +27,5 @@ public/images
 public/system
 
 tracker.output
+# Ignore application configuration
+/config/application.yml

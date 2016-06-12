@@ -4,12 +4,14 @@ source 'https://rubygems.org'
 ruby '2.3.0'
 
 # gem 'bcrypt', '~> 3.1.7'
+# gem 'yahoo-weather', '~> 1.2'
 gem 'active_model_serializers', git: 'https://github.com/rails-api/active_model_serializers', branch: 'master'
 gem 'apipie-rails'
 gem 'avatarly', '~> 1.4'
 gem 'awesome_print'
 gem 'browser', '~> 1.1'
 gem 'devise', '~> 4.0'
+gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'font-awesome-rails'
 gem 'geocoder'
 gem 'jquery-rails'
@@ -28,7 +30,6 @@ gem 'sinatra', git: 'https://github.com/sinatra/sinatra', branch: 'master', requ
 gem 'slim', '~> 3.0', '>= 3.0.6'
 gem 'sqlite3'
 gem 'tweetstream'
-# gem 'yahoo-weather', '~> 1.2'
 
 # https://github.com/dlt/yahoo_weatherman
 

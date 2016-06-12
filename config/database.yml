@@ -1,20 +1,22 @@
 default: &default
-  adapter: mysql2
+  adapter: sqlite3
   pool: 5
   timeout: 5000
-  encoding: utf8
-  username: dot_api
-  password: dk38K#&MNae5NUkNc
-  socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
-  database: dot_api_development
+  database: db/development.sqlite3
 
 test:
   <<: *default
-  database: dot_api_test
+  database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: dot_api_production
+  adapter: mysql2
+  database: <%= ENV['mysql']['database'] %>
+  encoding: utf8
+  password: <%= ENV['mysql']['password'] %>
+  pool: 5
+  socket: /var/run/mysqld/mysqld.sock
+  timeout: 5000
+  username: <%= ENV['mysql']['username'] %>

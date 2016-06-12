@@ -7,10 +7,10 @@ root = File.expand_path(File.join(File.dirname(__FILE__), '.'))
 require File.join(root, 'config', 'environment')
 
 TweetStream.configure do |config|
-  config.consumer_key       = 'b03z1apXYtpHHFWJY0LYRN4uI'
-  config.consumer_secret    = 'ADJm66KjZjZxId3MfIuoZZ7W2pvTBavSGtq2Plk44n0fXllO24'
-  config.oauth_token        = '4853273541-Bbab8VYmVwZt3e4FUkVnzg5WPKR3a0Ds48mG2Ax'
-  config.oauth_token_secret = '45rJCCPJJjUMK9qndAqmEKrzbsaLi0YgzEf4qF68Dv8Aa'
+  config.consumer_key       = ENV['twitter_consumer_key']
+  config.consumer_secret    = ENV['twitter_consumer_secret']
+  config.oauth_token        = ENV['twitter_oauth_token']
+  config.oauth_token_secret = ENV['twitter_oauth_token_secret']
   config.auth_method        = :oauth
 end
 
