@@ -2,7 +2,7 @@ module Api
   module V1
     module Users
       class SessionsController < Devise::SessionsController
-        api :POST, '/users/sign_in', 'Connect an User'
+        api :POST, '/sign_in', 'Connect an User'
         error code: 422, desc: 'Unprocessable entity'
         error code: 200, desc: 'Ok'
         meta clients: [:android_application, :web_application], status: :pending

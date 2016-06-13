@@ -36,7 +36,7 @@ module Api
         }
       EOS
       def index
-        render json: Reminder.order(created_at: :desc).page(1)
+        render json: Reminder.order(created_at: :desc).page(1).per(1)
       end
 
       api :GET, '/reminders/:id', 'Get a Reminder'
