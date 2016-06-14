@@ -56,7 +56,7 @@ module Api
 
       private
         def set_setting
-          @setting = Setting.find 1
+          @setting = Setting.first
         end
 
         def setting_params
