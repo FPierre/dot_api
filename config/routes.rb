@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       resources :reminders, only: [:index, :show, :create, :destroy]
       resources :settings, only: [:show, :update]
       resources :voice_commands, only: :index
+      resources :voice_recognition_servers, only: [:show, :update]
       resources :weather, only: :show
     end
   end
