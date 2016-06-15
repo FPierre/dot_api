@@ -10,8 +10,8 @@ module Api
             "id": "1",
             "type": "voice_recognition_servers",
             "attributes": {
-              "ip_address": false,
-              "mac_address": false,
+              "ip_address": nil,
+              "mac_address": nil,
             }
           }
         }
