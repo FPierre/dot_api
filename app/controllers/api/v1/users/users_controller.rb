@@ -53,7 +53,7 @@ module Api
           end
 
           def user_params
-            params.permit :admin, :approved, :email, :firstname, :lastname
+            params.permit :admin, :approved, :email, :firstname, :lastname, :password
           end
       end
     end
