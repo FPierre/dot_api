@@ -5,19 +5,13 @@ module Api
         api :POST, '/sign_in', 'Connect an User'
         error code: 422, desc: 'Unprocessable entity'
         error code: 200, desc: 'Ok'
-        meta clients: [:android_application, :web_application], status: :pending
+        meta clients: [:android_application, :web_application], status: :ok
         param :email,    String, desc: 'Email',    required: true
         param :password, String, desc: 'Password', required: true
         def create
-          ap 'API::V1::Users::SessionsController#create'
-          # https://github.com/plataformatec/devise/blob/master/app/controllers/devise/sessions_controller.rb#L16
-          # super
-
-          ap params
-          # ap params[:email]
-          # ap params[:password]
+          # ap 'API::V1::Users::SessionsController#create'
           user = User.find_by email: params[:email]
-          ap user
+          # ap user
 
           if user && user.valid_password?(params[:password])
             sign_in(user, store: false)
