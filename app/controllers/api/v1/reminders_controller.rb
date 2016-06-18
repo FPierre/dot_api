@@ -15,7 +15,7 @@ module Api
               "attributes": {
                 "content": "content",
                 "created-at": "2016-05-01T15:50:41.000Z",
-                "display-at": null,
+                "displayed-at": null,
                 "duration": 1,
                 "priority": 1,
                 "title": null,
@@ -36,7 +36,7 @@ module Api
         }
       EOS
       def index
-        render json: Reminder.order(created_at: :desc).page(1).per(1)
+        render json: Reminder.order(created_at: :desc).page(1).per(10)
       end
 
       api :GET, '/reminders/:id', 'Get a Reminder'
