@@ -3,7 +3,7 @@ module Api
     class VoiceCommandsController < ApplicationController
       before_action :authenticate, :authorize
 
-      api :GET, '/voice-commands', 'Get all voice commands for SARAH'
+      api :GET, '/voice_commands', 'Get all voice commands for SARAH'
       error code: 200, desc: 'Ok'
       meta clients: [:android_application, :web_application], status: :pending
       example <<-EOS
