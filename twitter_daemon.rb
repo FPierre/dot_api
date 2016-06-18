@@ -14,7 +14,12 @@ TweetStream.configure do |config|
   config.auth_method        = :oauth
 end
 
-daemon = TweetStream::Daemon.new 'tracker', log_output: true
+daemon = TweetStream::Daemon.new 'tracker', {
+  dir: File.join(root, 'tmp', 'pids'),
+  log_dir: File.join(root, 'log'),
+  log_output: true,
+  output_logfilename: 'twitter_daemon.log'
+}
 
 daemon.on_inited do
   # ActiveRecord::Base.connection.reconnect!
