@@ -9,6 +9,6 @@ class NotificationChannel < ApplicationCable::Channel
   end
 
   def speak data
-    ActionCable.server.broadcast 'notification_channel', notification: data['notification']
+    ActionCable.server.broadcast 'notification_channel', notification: data
   end
 end
