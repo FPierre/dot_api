@@ -14,14 +14,6 @@ TweetStream.configure do |config|
   config.auth_method        = :oauth
 end
 
-# TweetStream::Daemon.new('tracker').track('SNCF') do |status|
-#   puts "#{status.text}"
-
-#   ActionCable.server.broadcast 'notification_channel', author: 'SNCF', message: status.text, duration: 10000
-
-#   head :ok
-# end
-
 daemon = TweetStream::Daemon.new 'tracker', log_output: true
 
 daemon.on_inited do
@@ -31,14 +23,18 @@ end
 
 daemon.track('SNCF') do |tweet|
   puts "#{tweet.text}"
+  # puts 'twitter'
+  # puts Setting.first.id
+
+  # return unless Setting.first.twitter_enabled
 
   notification = {
     content: tweet.text,
-    created_at: Datetime.now,
-    duration: 10000,
+    created_at: DateTime.now,
+    duration: 1000,
     priority: 3,
     user: 'Twitter'
   }
 
-  ActionCable.server.broadcast 'notification_channel', notification
+  ActionCable.server.broadcast 'notification_channel', notification: notification
 end
