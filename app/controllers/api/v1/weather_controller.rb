@@ -2,13 +2,19 @@ module Api
   module V1
     class WeatherController < ApplicationController
       def show
-        # weather_client = YahooWeatherService.new
+        weather_client = WeatherService.new
+        data = {
+          weather: weather_client.current_weather,
+          temp: {
+            current: weather_client.current_temp,
+            min: weather_client.current_temp_min,
+            max: weather_client.current_temp_max
+          }
+        }
 
-        # https://www.yahoo.com/news/weather/
-        # weather = weather_client.fetch
-        # weather = weather_client.lookup_by_woeid 615702
+        # ap data
 
-        # ap weather
+        render json: data, status: :ok
       end
     end
   end

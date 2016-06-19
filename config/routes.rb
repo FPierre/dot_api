@@ -33,7 +33,8 @@ Rails.application.routes.draw do
       resources :settings, only: [:show, :update]
       resources :voice_commands, only: :index
       resources :voice_recognition_servers, only: [:show, :update]
-      resources :weather, only: :show
+
+      get :weather, to: 'weather#show'
     end
   end
 

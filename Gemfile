@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-# gem 'bcrypt', '~> 3.1.7'
-# gem 'yahoo-weather', '~> 1.2'
 gem 'active_model_serializers', git: 'https://github.com/rails-api/active_model_serializers', branch: 'master'
 gem 'apipie-rails'
 gem 'avatarly', '~> 1.4'
@@ -19,6 +17,7 @@ gem 'kaminari', '~> 0.16.3'
 gem 'lograge'
 gem 'materialize-sass'
 gem 'mysql2'
+gem 'open-weather'
 gem 'paperclip', '~> 5.0.0.beta2'
 gem 'puma'
 gem 'rack-cors'
@@ -30,8 +29,6 @@ gem 'sinatra', git: 'https://github.com/sinatra/sinatra', branch: 'master', requ
 gem 'slim', '~> 3.0', '>= 3.0.6'
 gem 'sqlite3'
 gem 'tweetstream'
-
-# https://github.com/dlt/yahoo_weatherman
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
