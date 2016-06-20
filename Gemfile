@@ -29,6 +29,7 @@ gem 'sinatra', git: 'https://github.com/sinatra/sinatra', branch: 'master', requ
 gem 'slim', '~> 3.0', '>= 3.0.6'
 gem 'sqlite3'
 gem 'tweetstream'
+gem 'whenever', '~> 0.9.4', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

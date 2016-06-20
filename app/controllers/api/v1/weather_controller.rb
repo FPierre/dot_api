@@ -4,11 +4,13 @@ module Api
       def show
         weather_client = WeatherService.new
         data = {
-          weather: weather_client.current_weather,
-          temp: {
-            current: weather_client.current_temp,
-            min: weather_client.current_temp_min,
-            max: weather_client.current_temp_max
+          data: {
+            weather: weather_client.current_weather,
+            temp: {
+              current: weather_client.current_temp,
+              min: weather_client.current_temp_min,
+              max: weather_client.current_temp_max
+            }
           }
         }
 
