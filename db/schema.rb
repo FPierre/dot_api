@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160614193059) do
+ActiveRecord::Schema.define(version: 20160620183409) do
 
   create_table "raspberries", force: :cascade do |t|
     t.string   "name",        limit: 255, null: false
@@ -34,15 +34,13 @@ ActiveRecord::Schema.define(version: 20160614193059) do
   end
 
   create_table "settings", force: :cascade do |t|
-    t.boolean  "sarah_enabled",            default: true
-    t.boolean  "twitter_enabled",          default: true
-    t.boolean  "reminders_enabled",        default: true
-    t.boolean  "weather_enabled",          default: true
-    t.boolean  "weather_current_day_only", default: true
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.boolean  "room_occupied",            default: false
-    t.boolean  "screen_guest_enabled",     default: false
+    t.boolean  "sarah_enabled",        default: true
+    t.boolean  "twitter_enabled",      default: true
+    t.boolean  "reminders_enabled",    default: true
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.boolean  "room_occupied",        default: false
+    t.boolean  "screen_guest_enabled", default: false
   end
 
   create_table "tests", force: :cascade do |t|

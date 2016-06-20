@@ -17,9 +17,7 @@ module Api
               "room-occupied": false,
               "sarah-enabled": false,
               "screen-guest-enabled": false,
-              "twitter-enabled": false,
-              "weather-current-day-only": true,
-              "weather-enabled": false
+              "twitter-enabled": false
             }
           }
         }
@@ -60,7 +58,8 @@ module Api
         end
 
         def setting_params
-          params.permit :reminders_enabled, :sarah_enabled, :twitter_enabled, :weather_current_day_only, :weather_enabled
+          params.permit :reminders_enabled, :room_occupied, :sarah_enabled, :screen_guest_enable, :screen_guest_enabled,
+                        :twitter_enabled
         end
     end
   end
