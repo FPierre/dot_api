@@ -5,7 +5,7 @@ module Api
       before_action :set_raspberry, only: [:show, :update, :destroy]
 
       api :GET, '/raspberries', 'Get all Raspberries'
-      meta clients: [:web_application], status: :pending
+      meta clients: [:sarah, :web_application], status: :ok
       example <<-EOS
         {
           "data": [
@@ -26,7 +26,7 @@ module Api
       end
 
       api :GET, '/raspberries/:id', 'Get a Raspberry'
-      meta clients: [:web_application], status: :pending
+      meta clients: [:sarah, :web_application], status: :pending
       example <<-EOS
         {
           "data": {
@@ -46,7 +46,6 @@ module Api
       end
 
       api :POST, '/raspberries', 'Create a Raspberry'
-      description "Create a Raspberry"
       error code: 201, desc: 'Created'
       error code: 422, desc: 'Unprocessable entity'
       meta clients: [:web_application], status: :pending
@@ -64,7 +63,9 @@ module Api
       end
 
       api :PUT, '/raspberries/:id', 'Update a Raspberry'
-      meta clients: [:android_application, :web_application], status: :pending
+      error code: 201, desc: 'Created'
+      error code: 422, desc: 'Unprocessable entity'
+      meta clients: [:sarah, :web_application], status: :pending
       def update
         if @raspberry.update raspberry_params
           render json: @raspberry, status: :ok
@@ -75,14 +76,11 @@ module Api
 
       api :DELETE, '/raspberries/:id', 'Delete a Raspberry'
       error code: 200, desc: 'Ok'
-      meta clients: [:android_application, :web_application], status: :pending
+      meta clients: [:web_application], status: :pending
       def destroy
-        # ap 'API::V1::RaspberriesController#destroyed'
         if @raspberry.destroy
-          # ap 'destroyed'
           render json: @raspberry, status: :ok
         else
-          # ap 'not destroyed'
           render json: @raspberry.errors, status: :unprocessable_entity
         end
       end
