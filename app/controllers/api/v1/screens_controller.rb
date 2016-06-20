@@ -1,6 +1,8 @@
 module Api
   module V1
     class ScreensController < ApplicationController
+      before_action :authenticate, :authorize
+
       api :GET, '/screens/path/from/:from/to/:to', 'Display the path between two cities'
       description 'Make a request to the Google Map API to search the car route between the city "from" and the city "to".'
       error code: 400, desc: 'Bad request'
