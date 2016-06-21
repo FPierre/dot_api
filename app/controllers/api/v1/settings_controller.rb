@@ -31,26 +31,31 @@ module Api
       def update
         if @setting.update setting_params
           render json: @setting, status: :ok
+
+          # Set the room state, whatever its previous state
+          if setting_params.include? :room_occupied
+            ap "API::V1::SettingsController#update room_occupied to #{@setting.room_occupied}"
+            raspberry_api_connector = RaspberryApiConnector.new
+
+            raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
+          end
+
+          # Set the screen mode, whatever its previous state
+          if setting_params.include? :screen_guest_enabled
+            if @setting.screen_guest_enabled == true
+              mode = :guest
+            else
+              mode = :team
+            end
+
+            ap "API::V1::SettingsController#update screen_guest_enabled to #{mode}"
+
+            ActionCable.server.broadcast 'screen_mode_channel', mode: mode
+          end
         else
           render json: @setting.errors, status: :unprocessable_entity
         end
       end
-
-      # def meeting_room_state
-      #   params = { mode: params[:mode] }
-
-      #   x = Net::HTTP.post_form(URI.parse('http://10.33.0.39:8888/led.py'), params)
-
-      #   ap x
-      # end
-
-      # api :GET, '/settings/sarah-commands', 'Get the list of vocals commands for SARAH'
-      # description 'Get a static list of available commands to talk with SARAH'
-      # meta clients: [:android_application, :web_application], status: :pending
-      # error code: 200, desc: 'Ok'
-      # def sarah_commands
-
-      # end
 
       private
         def set_setting
