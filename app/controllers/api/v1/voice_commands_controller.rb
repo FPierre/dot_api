@@ -9,17 +9,65 @@ module Api
       example <<-EOS
         {
           "data": [
-            { "name": "name command 1", description: "desc command 1" },
-            { "name": "name command 2", description: "desc command 2" },
-            { "name": "name command 3", description: "desc command 3" },
+            {
+              name: "Mise en veille",
+              description: "SARAH mets toi en veille"
+            },
+            {
+              name: "Demande d'itinéraire",
+              description: [
+                "SARAH Affiche moi itinéraire de :from à :to",
+                "SARAH Affiche moi un itinéraire de :from à :to",
+                "SARAH Affiche-moi itinéraire de :from à :to",
+                "SARAH Affiche-moi un itinéraire de :from à :to",
+                "SARAH Dis moi itinéraire de :from à :to",
+                "SARAH Dis moi un itneraire de :from à :to",
+                "SARAH Dis-moi itinéraire de :from à :to",
+                "SARAH Dis-moi un itinéraire de :from à :to",
+                "SARAH Donne moi itinéraire de :from à :to",
+                "SARAH Donne moi un itinéraire de :from à :to",
+                "SARAH Donne-moi itinéraire de :from à :to",
+                "SARAH Donne-moi un itinéraire de :from à :to",
+                "SARAH Recherche moi itinéraire de :from à :to",
+                "SARAH Recherche moi un itinéraire de :from à :to",
+                "SARAH Recherche-moi itinéraire de :from à :to",
+                "SARAH Recherche-moi un itinéraire de :from à :to",
+                "SARAH Test itinéraire de :from à :to",
+                "SARAH Test un itinéraire de:from à :to"
+              ]
+            }
           ]
         }
       EOS
       def index
         commands = [
-          { name: 'name command 1', description: 'desc command 1' },
-          { name: 'name command 2', description: 'desc command 2' },
-          { name: 'name command 3', description: 'desc command 3' },
+          {
+            name: "Mise en veille",
+            description: "SARAH mets toi en veille"
+          },
+          {
+            name: "Demande d'itinéraire",
+            description: [
+              "SARAH Affiche moi itinéraire de :from à :to",
+              "SARAH Affiche moi un itinéraire de :from à :to",
+              "SARAH Affiche-moi itinéraire de :from à :to",
+              "SARAH Affiche-moi un itinéraire de :from à :to",
+              "SARAH Dis moi itinéraire de :from à :to",
+              "SARAH Dis moi un itneraire de :from à :to",
+              "SARAH Dis-moi itinéraire de :from à :to",
+              "SARAH Dis-moi un itinéraire de :from à :to",
+              "SARAH Donne moi itinéraire de :from à :to",
+              "SARAH Donne moi un itinéraire de :from à :to",
+              "SARAH Donne-moi itinéraire de :from à :to",
+              "SARAH Donne-moi un itinéraire de :from à :to",
+              "SARAH Recherche moi itinéraire de :from à :to",
+              "SARAH Recherche moi un itinéraire de :from à :to",
+              "SARAH Recherche-moi itinéraire de :from à :to",
+              "SARAH Recherche-moi un itinéraire de :from à :to",
+              "SARAH Test itinéraire de :from à :to",
+              "SARAH Test un itinéraire de:from à :to"
+            ]
+          }
         ]
 
         render json: { data: commands }
