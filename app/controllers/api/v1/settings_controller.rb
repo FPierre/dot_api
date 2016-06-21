@@ -3,7 +3,7 @@ require 'net/http'
 module Api
   module V1
     class SettingsController < ApplicationController
-      before_action :authenticate, :authorize_admin
+      before_action :authenticate, :authorize
       before_action :set_setting, only: [:show, :update]
 
       api :GET, '/settings/1', 'Get the Setting object'
