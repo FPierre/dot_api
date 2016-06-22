@@ -1,4 +1,4 @@
-raspberry_one:
+one:
   name: Raspberry Pi One
   ip_address: 24.147.150.167
   mac_address: 29-F1-EB-C8-4F-B0

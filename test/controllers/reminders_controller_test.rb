@@ -2,40 +2,32 @@ require 'test_helper'
 
 class RemindersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @reminder = reminders :reminder_1
+    @reminder = reminders(:one)
   end
 
   test 'should get index' do
-    request_with_token(:admin) do |params|
-      params.get api_v1_reminders_url
+    get api_v1_reminders_url
+    assert_response :success
+  end
+
+  test 'should create reminder' do
+    assert_difference('Reminder.count') do
+      post api_v1_reminders_url, params: { reminder: {  } }
     end
 
-    assert_response :success
-    # assert_includes @response.body['data'][0]['type'], 'reminders'
+    assert_response 201
   end
 
   test 'should show reminder' do
-    request_with_token(:admin) do |params|
-      params.get api_v1_reminders_url, params: { id: @reminder.id }
-    end
-
+    get api_v1_reminder_url(@reminder)
     assert_response :success
   end
 
-  test 'should show reminder with attributes' do
-    request_with_token(:admin) do |params|
-      params.get api_v1_reminders_url
-    end
-
-    json = JSON.parse @response.body
-    # assert_includes(['content', 'created-at', 'displayed-at', 'duration', 'priority', 'title', 'type', 'user', 'displayed', 'displayed-ago'], json['data'][0]['attributes'].keys)
-  end
-
   test 'should destroy reminder' do
-    request_with_token(:admin) do |params|
-      assert_difference('Reminder.count', -1) do
-        params.delete api_v1_reminder_url(@reminder)
-      end
+    assert_difference('Reminder.count', -1) do
+      delete api_v1_reminder_url(@reminder)
     end
+
+    assert_response 204
   end
 end

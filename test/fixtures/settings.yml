@@ -1,7 +1,7 @@
-setting_1:
+one:
   id: 1
   sarah_enabled: true
   twitter_enabled: true
   reminders_enabled: true
-  weather_enabled: true
-  weather_current_day_only: true
+  room_occupied: true
+  screen_guest_enabled: true

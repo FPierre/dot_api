@@ -11,18 +11,13 @@ class ScreenRoutesTest < ActionController::TestCase
                    { controller: api_controller('screens'), action: 'guest' })
   end
 
-  test 'should route to news screen' do
-    assert_routing(api_route('/screens/news'),
-                   { controller: api_controller('screens'), action: 'news' })
-  end
-
   test 'should route to resize screen size' do
-    assert_routing(api_route('/screens/resize/zone/:zone/size/:size'),
-                   { controller: api_controller('screens'), action: 'resize', zone: '1', size: 'half' })
+    assert_routing(api_route('/screens/resize/zone/1/size/full'),
+                   { controller: api_controller('screens'), action: 'resize' })
   end
 
   test 'should route to find path for map on screen' do
-    assert_routing({ api_route('/screens/path/from/:from/to/:to'),
-                   { controller: api_controller('reminders'), action: 'destroy', from: 'Paris', to: 'Lyon' })
+    assert_routing(api_route('/screens/path/from/Paris/to/Lyon'),
+                   { controller: api_controller('screens'), action: 'path' })
   end
 end
