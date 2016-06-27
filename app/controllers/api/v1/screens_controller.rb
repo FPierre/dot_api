@@ -58,11 +58,6 @@ module Api
         ActionCable.server.broadcast 'screen_mode_channel', mode: :team
       end
 
-      api :GET, '/screens/news', 'Screen to news mode'
-      def news
-        ActionCable.server.broadcast 'screen_mode_channel', mode: :news
-      end
-
       api :GET, '/screens/guest', 'Screen to guest mode'
       def guest
         ActionCable.server.broadcast 'screen_mode_channel', mode: :guest

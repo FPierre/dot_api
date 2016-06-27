@@ -75,11 +75,11 @@ module Api
       end
 
       api :DELETE, '/raspberries/:id', 'Delete a Raspberry'
-      error code: 200, desc: 'Ok'
+      error code: 204, desc: 'No content'
       meta clients: [:web_application], status: :pending
       def destroy
         if @raspberry.destroy
-          render json: @raspberry, status: :ok
+          render json: @raspberry, status: :no_content
         else
           render json: @raspberry.errors, status: :unprocessable_entity
         end
@@ -91,7 +91,7 @@ module Api
         end
 
         def raspberry_params
-          params.permit :ip_address, :mac_address, :name
+          params.permit :api_port, :master_device, :ip_address, :mac_address, :name
         end
     end
   end

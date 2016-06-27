@@ -19,7 +19,6 @@ Rails.application.routes.draw do
         get 'path/from/:from/to/:to', action: 'path'
         get 'resize/zone/:zone/size/:size', action: 'resize'
         get 'team'
-        get 'news'
         get 'guest'
       end
 
@@ -30,7 +29,9 @@ Rails.application.routes.draw do
 
       resources :raspberries, only: [:index, :show, :create, :update, :destroy]
       resources :reminders, only: [:index, :show, :create, :destroy]
-      resources :settings, only: [:show, :update]
+      resources :settings, only: [:show, :update] do
+        put 'sarah_enabled'
+      end
       resources :voice_commands, only: :index
       resources :voice_recognition_servers, only: [:show, :update]
 

@@ -11,7 +11,9 @@ module Api
           "data": [
             {
               name: "Mise en veille",
-              description: "SARAH mets toi en veille"
+              description: [
+                "SARAH mets toi en veille"
+              ]
             },
             {
               name: "Demande d'itinéraire",
@@ -43,7 +45,9 @@ module Api
         commands = [
           {
             name: "Mise en veille",
-            description: "SARAH mets toi en veille"
+            description: [
+              "SARAH mets toi en veille"
+            ]
           },
           {
             name: "Demande d'itinéraire",

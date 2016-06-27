@@ -3,7 +3,7 @@ module Api
     class TestsController < ApplicationController
       before_action :authenticate, :authorize
 
-      api :GET, '/ping', 'Get the API status'
+      api :GET, '/tests/ping', 'Get the API status'
       description "If the API is up, returns 'pong'"
       error code: 200, desc: 'Ok'
       example <<-EOS
@@ -16,9 +16,14 @@ module Api
         render json: { data: 'pong' }
       end
 
-      api :POST, '/voice'
+      api :POST, '/tests/voice'
       def voice
         # TODO Call SARAH
+        ap params[:text]
+
+        voice_recognition_server_api_connector = VoiceRecognitionServerApiConnector.new
+
+        voice_recognition_server_api_connector.get_text_to_speech params[:text]
       end
     end
   end

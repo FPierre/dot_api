@@ -3,8 +3,9 @@ require 'net/http'
 module Api
   module V1
     class SettingsController < ApplicationController
-      before_action :authenticate, :authorize
-      before_action :set_setting, only: [:show, :update]
+      before_action :authenticate, only: [:show, :update]
+      before_action :authorize,    only: [:show, :update]
+      before_action :set_setting,  only: [:show, :update, :update_sarah_enabled]
 
       api :GET, '/settings/1', 'Get the Setting object'
       example <<-EOS
@@ -57,6 +58,14 @@ module Api
         end
       end
 
+      api :PUT, '/settings/1/sarah_enabled', 'Update the SARAH state'
+      meta clients: [:sarah], status: :pending
+      def update_sarah_enabled
+        @setting.update setting_params_sarah
+
+        render head: :no_content
+      end
+
       private
         def set_setting
           @setting = Setting.first
@@ -65,6 +74,10 @@ module Api
         def setting_params
           params.permit :reminders_enabled, :room_occupied, :sarah_enabled, :screen_guest_enable, :screen_guest_enabled,
                         :twitter_enabled
+        end
+
+        def setting_params_sarah
+          params.permit :sarah_enabled
         end
     end
   end
