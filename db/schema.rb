@@ -11,14 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620204731) do
+ActiveRecord::Schema.define(version: 20160627171813) do
 
   create_table "raspberries", force: :cascade do |t|
-    t.string   "name",        limit: 255, null: false
-    t.string   "ip_address",              null: false
-    t.string   "mac_address",             null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "name",          limit: 255,                 null: false
+    t.string   "ip_address",                                null: false
+    t.string   "mac_address",                               null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.integer  "api_port"
+    t.boolean  "master_device",             default: false
   end
 
   create_table "reminders", force: :cascade do |t|
@@ -41,6 +43,11 @@ ActiveRecord::Schema.define(version: 20160620204731) do
     t.datetime "updated_at",                           null: false
     t.boolean  "room_occupied",        default: false
     t.boolean  "screen_guest_enabled", default: false
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160620204731) do
     t.string   "mac_address"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "api_port"
   end
 
 end
