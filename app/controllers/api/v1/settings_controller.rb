@@ -53,6 +53,15 @@ module Api
 
             ActionCable.server.broadcast 'screen_mode_channel', mode: mode
           end
+
+          # Set the SARAH state
+          if setting_params.include? :sarah_enabled
+            ap "API::V1::SettingsController#update sarah_enabled to #{sarah_enabled}"
+
+            voice_recognition_server_api_connector = VoiceRecognitionServerApiConnector.new
+
+            voice_recognition_server_api_connector.get_sleep_mode reveil: @setting.sarah_enabled
+          end
         else
           render json: @setting.errors, status: :unprocessable_entity
         end

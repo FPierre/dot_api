@@ -27,11 +27,9 @@ daemon.on_inited do
 end
 
 daemon.track('SNCF') do |tweet|
-  puts "#{tweet.text}"
-  # puts 'twitter'
-  # puts Setting.first.id
+  return unless Setting.first.twitter_enabled
 
-  # return unless Setting.first.twitter_enabled
+  puts "#{tweet.text}"
 
   notification = {
     content: tweet.text,

@@ -30,12 +30,10 @@ class VoiceRecognitionServerApiConnector
     process { resource.get(route_for('dot_meteo', options), headers) }
   end
 
-  # TODO text=blah
   def get_text_to_speech options = {}
     process { resource.get(route_for('dot_text_to_speech', options), headers) }
   end
 
-  # TODO reveil=true ou false
   def get_sleep_mode options = {}
     process { resource.get(route_for('dot_veille', options), headers) }
   end
