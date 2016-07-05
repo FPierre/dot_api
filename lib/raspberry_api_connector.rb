@@ -12,7 +12,7 @@ class RaspberryApiConnector
     ap 'RaspberryApiConnector#initialize'
     raspberry = Raspberry.find_by name: 'RASP_INTERNE'
 
-    @api_port = 8888
+    @api_port = raspberry.api_port
     @api_url  = raspberry.ip_address
   rescue NoMethodError => e
     raise Error.new "Please add 'api_url' and 'api_port' keys into your configuration"

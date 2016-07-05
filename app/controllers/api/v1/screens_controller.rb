@@ -22,7 +22,7 @@ module Api
           render json: { message: "Erreur lors de la recherche de l'itinéraire" }, status: :bad_request and return
         end
 
-        # TODO Idiom pour gérer le code suivant plus proprement ?
+        # OPTIMIZE Idiom pour gérer le code suivant plus proprement
 
         from = request_from&.first&.data['geometry']['location']
         to = request_to&.first&.data['geometry']['location']

@@ -5,7 +5,7 @@ module Api
       before_action :set_reminder, only: [:show, :destroy]
 
       api :GET, '/reminders', 'Get all Reminders'
-      meta clients: [:android_application, :web_application], status: :pending
+      meta clients: [:android_application, :web_application], status: :ok
       example <<-EOS
         {
           "data": [
@@ -40,7 +40,7 @@ module Api
       end
 
       api :GET, '/reminders/:id', 'Get a Reminder'
-      meta clients: [:android_application, :web_application], status: :pending
+      meta clients: [:android_application, :web_application], status: :ok
       example <<-EOS
         {
           "data": {
@@ -66,15 +66,15 @@ module Api
       end
 
       api :POST, '/reminders', 'Create a Reminder'
-      description "Create a Reminder and display it immediatly on internal screen if no datetime is given"
+      description "Create a Reminder and display it immediatly on internal screen if no displayed_at datetime is given"
       error code: 201, desc: 'Created'
       error code: 422, desc: 'Unprocessable entity'
-      meta clients: [:android_application, :web_application], status: :pending
+      meta clients: [:android_application, :web_application], status: :ok
       param :content,      String,    desc: 'Content',          required: true
-      param :displayed_at, DateTime,  desc: 'Trigger datetime', required: false
+      param :displayed_at, DateTime,  desc: 'Trigger datetime'
       param :duration,     [1..60],   desc: 'Duration',         required: true
-      param :priority,     [1, 2, 3], desc: 'Priority',         required: false
-      param :title,        String,    desc: 'Title',            required: false
+      param :priority,     [1, 2, 3], desc: 'Priority'
+      param :title,        String,    desc: 'Title'
       param :user_id,      Integer,   desc: 'User ID',          required: true
       def create
         if params[:user_id].present? && User.find(params[:user_id])
@@ -90,14 +90,12 @@ module Api
 
       api :DELETE, '/reminders/:id', 'Delete a Reminder'
       error code: 200, desc: 'Ok'
-      meta clients: [:android_application, :web_application], status: :pending
+      error code: 422, desc: 'Unprocessable entity'
+      meta clients: [:android_application, :web_application], status: :ok
       def destroy
-        # ap 'API::V1::RemindersController#destroyed'
         if @reminder.destroy
-          # ap 'destroyed'
           render json: @reminder, status: :ok
         else
-          # ap 'not destroyed'
           render json: @reminder.errors, status: :unprocessable_entity
         end
       end

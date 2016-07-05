@@ -13,10 +13,13 @@ module Api
               "id": "1",
               "type": "raspberries",
               "attributes": {
+                "api_port": 8080,
                 "created-at": "2016-06-06T21:42:53.000+02:00",
                 "ip-address": "74.235.83.147",
                 "mac-address": "24:63:51:7D:1C:02",
+                "master_device": false,
                 "name": "Raspberry 1"
+              }
             }
           ]
         }
@@ -26,16 +29,18 @@ module Api
       end
 
       api :GET, '/raspberries/:id', 'Get a Raspberry'
-      meta clients: [:sarah, :web_application], status: :pending
+      meta clients: [:sarah, :web_application], status: :ok
       example <<-EOS
         {
           "data": {
             "id": "1",
             "type": "raspberries",
             "attributes": {
+              "api_port": 8080,
               "created-at": "2016-06-06T21:42:53.000+02:00",
               "ip-address": "74.235.83.147",
               "mac-address": "24:63:51:7D:1C:02",
+              "master_device": false,
               "name": "Raspberry 1"
             }
           }
@@ -48,10 +53,12 @@ module Api
       api :POST, '/raspberries', 'Create a Raspberry'
       error code: 201, desc: 'Created'
       error code: 422, desc: 'Unprocessable entity'
-      meta clients: [:web_application], status: :pending
-      param :name,        String, desc: 'Name',        required: true
-      param :ip_address,  String, desc: 'IP address',  required: true
-      param :mac_address, String, desc: 'MAC address', required: true
+      meta clients: [:web_application], status: :ok
+      param :api_port,      Integer,       desc: 'API port'
+      param :ip_address,    String,        desc: 'IP address',         required: true
+      param :mac_address,   String,        desc: 'MAC address',        required: true
+      param :master_device, [true, false], desc: 'Control IoT devices'
+      param :name,          String,        desc: 'Name',               required: true
       def create
         raspberry = Raspberry.new raspberry_params
 
@@ -65,7 +72,12 @@ module Api
       api :PUT, '/raspberries/:id', 'Update a Raspberry'
       error code: 201, desc: 'Created'
       error code: 422, desc: 'Unprocessable entity'
-      meta clients: [:sarah, :web_application], status: :pending
+      meta clients: [:sarah, :web_application], status: :ok
+      param :api_port,      Integer,       desc: 'API port'
+      param :ip_address,    String,        desc: 'IP address',         required: true
+      param :mac_address,   String,        desc: 'MAC address',        required: true
+      param :master_device, [true, false], desc: 'Control IoT devices'
+      param :name,          String,        desc: 'Name',               required: true
       def update
         if @raspberry.update raspberry_params
           render json: @raspberry, status: :ok
@@ -76,7 +88,8 @@ module Api
 
       api :DELETE, '/raspberries/:id', 'Delete a Raspberry'
       error code: 204, desc: 'No content'
-      meta clients: [:web_application], status: :pending
+      error code: 422, desc: 'Unprocessable entity'
+      meta clients: [:web_application], status: :ok
       def destroy
         if @raspberry.destroy
           render json: @raspberry, status: :no_content

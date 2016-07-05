@@ -12,7 +12,7 @@ class VoiceRecognitionServerApiConnector
     ap 'VoiceRecognitionServerApiConnector#initialize'
     server = VoiceRecognitionServer.first
 
-    @api_port = 8080
+    @api_port = server.api_port
     @api_url  = server.ip_address
   rescue NoMethodError => e
     raise Error.new "Please add 'api_url' and 'api_port' keys into your configuration"

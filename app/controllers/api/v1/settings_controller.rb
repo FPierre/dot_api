@@ -3,9 +3,8 @@ require 'net/http'
 module Api
   module V1
     class SettingsController < ApplicationController
-      before_action :authenticate, only: [:show, :update]
-      before_action :authorize,    only: [:show, :update]
-      before_action :set_setting,  only: [:show, :update, :update_sarah_enabled]
+      before_action :authenticate, :authorize, only: :update
+      before_action :set_setting, only: [:show, :update, :update_sarah_enabled]
 
       api :GET, '/settings/1', 'Get the Setting object'
       example <<-EOS
@@ -31,14 +30,15 @@ module Api
       meta clients: [:android_application, :web_application], status: :pending
       def update
         if @setting.update setting_params
-          render json: @setting, status: :ok
-
           # Set the room state, whatever its previous state
           if setting_params.include? :room_occupied
             ap "API::V1::SettingsController#update room_occupied to #{@setting.room_occupied}"
-            raspberry_api_connector = RaspberryApiConnector.new
 
-            raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
+            # raspberry_api_connector = RaspberryApiConnector.new
+
+            # raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
+
+            ActionCable.server.broadcast 'room_mode_channel', room_occupied: @setting.room_occupied
           end
 
           # Set the screen mode, whatever its previous state
@@ -62,6 +62,8 @@ module Api
 
             voice_recognition_server_api_connector.get_sleep_mode reveil: @setting.sarah_enabled
           end
+
+          render json: @setting, status: :ok
         else
           render json: @setting.errors, status: :unprocessable_entity
         end
@@ -81,8 +83,7 @@ module Api
         end
 
         def setting_params
-          params.permit :reminders_enabled, :room_occupied, :sarah_enabled, :screen_guest_enable, :screen_guest_enabled,
-                        :twitter_enabled
+          params.permit :reminders_enabled, :room_occupied, :sarah_enabled, :screen_guest_enabled, :twitter_enabled
         end
 
         def setting_params_sarah
