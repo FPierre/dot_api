@@ -46,7 +46,7 @@ module Api
             if @setting.screen_guest_enabled == true
               mode = :guest
             else
-              mode = :team
+              mode = :normal
             end
 
             ap "API::V1::SettingsController#update screen_guest_enabled to #{mode}"

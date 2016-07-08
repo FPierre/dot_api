@@ -37,7 +37,7 @@ module Api
 
           user.avatar = File.new("public/images/#{user_params[:email].parameterize}.png")
 
-          if user.save!
+          if user.save
             render json: user, status: :created
           else
             render json: user.errors, status: :unprocessable_entity
