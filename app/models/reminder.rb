@@ -14,7 +14,7 @@ class Reminder < ApplicationRecord
   }
   validates :user, presence: true
 
-  after_save -> { ReminderDisplayWorker.perform_at(self.displayed_at, self.id) if self.displayed_at }
+  after_save -> { ReminderDisplayWorker.perform_at(displayed_at, id) if displayed_at }
 
   def to_serialize
     ActiveModelSerializers::SerializableResource.new(self, {}).as_json
