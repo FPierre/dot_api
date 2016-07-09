@@ -8,7 +8,7 @@ class ScreenModeChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  # def speak data
-  #   ActionCable.server.broadcast 'screen_mode_channel', mode: data['mode']
-  # end
+  def speak data
+    ActionCable.server.broadcast 'screen_mode_channel', mode: data['mode']
+  end
 end

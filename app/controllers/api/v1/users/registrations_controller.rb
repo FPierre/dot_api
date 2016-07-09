@@ -44,28 +44,6 @@ module Api
           end
         end
 
-        # api :PUT, '/users', 'Update an User'
-        # def update
-        #   super
-        # end
-
-        # api :DELETE, '/users', 'Delete an User'
-        # desc 'Only admin User is allowed to delete other Users'
-        # meta clients: [:android_application, :web_application], status: :pending
-        # param :user_id, Integer, desc: 'User ID to delete', required: true
-        # def destroy
-        #   super
-        # end
-
-        # GET /resource/cancel
-        # Forces the session data which is usually expired after sign
-        # in to be expired now. This is useful if the user wants to
-        # cancel oauth signing in/up in the middle of the process,
-        # removing all OAuth session data.
-        # def cancel
-        #   super
-        # end
-
         private
           def user_params
             params.permit :email, :firstname, :lastname, :password

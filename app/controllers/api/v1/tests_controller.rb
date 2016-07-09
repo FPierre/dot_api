@@ -18,7 +18,6 @@ module Api
 
       api :POST, '/tests/voice'
       def voice
-        # ap params[:text]
         voice_recognition_server_api_connector = VoiceRecognitionServerApiConnector.new
 
         voice_recognition_server_api_connector.get_text_to_speech text: params[:text]

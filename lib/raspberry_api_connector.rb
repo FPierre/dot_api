@@ -10,7 +10,7 @@ class RaspberryApiConnector
 
   def initialize option = {}
     ap 'RaspberryApiConnector#initialize'
-    raspberry = Raspberry.find_by name: 'RASP_INTERNE'
+    raspberry = Raspberry.find_by master_device: true
 
     @api_port = raspberry.api_port
     @api_url  = raspberry.ip_address
@@ -27,38 +27,9 @@ class RaspberryApiConnector
 
     response = yield
 
-    # ap response.code
-
     self
   rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError => e # API unreachable
     raise Error.new 'API is unreachable'
-  else
-    # case response
-    # when Net::HTTPSuccess
-    #   # ap 'no error from api'
-    #   # begin
-    #   #   result = (JSON.parse(response.body).with_indifferent_access rescue {})
-    #   #   ap result
-    #   #   @data = result&.dig :data
-
-    #   #   self
-    #   # rescue JSON::ParserError => e
-    #   #   raise Error.new e.message
-    #   # end
-
-    #   self
-    # else
-    #   # ap 'error from api'
-    #   # begin
-    #   #   @errors = (JSON.parse(response.body).with_indifferent_access rescue {})
-
-    #   #   self
-    #   # rescue JSON::ParserError => e
-    #   #   raise Error.new e.message
-    #   # end
-
-    #   self
-    # end
   end
 
   private

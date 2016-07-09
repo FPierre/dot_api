@@ -14,8 +14,6 @@ module Api
           }
         }
 
-        # ap data
-
         render json: data, status: :ok
       end
     end

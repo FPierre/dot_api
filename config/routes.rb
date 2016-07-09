@@ -9,10 +9,7 @@ Rails.application.routes.draw do
         resources :users, only: [:show, :index, :update, :destroy], controller: 'users/users'
 
         post 'sign_in', to: 'users/sessions#create', as: :user_session
-        # delete 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
-        # delete 'users', to: 'users/registrations#destroy', as: :destroy_user_registration
         post 'users', to: 'users/registrations#create', as: :user_registration
-        # put 'users', to: 'users/registrations#update'
       end
 
       namespace :screens do

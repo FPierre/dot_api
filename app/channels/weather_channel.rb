@@ -8,7 +8,7 @@ class WeatherChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  # def speak data
-  #   ActionCable.server.broadcast 'weather_channel', weather: data['weather']
-  # end
+  def speak data
+    ActionCable.server.broadcast 'weather_channel', weather: data['weather']
+  end
 end

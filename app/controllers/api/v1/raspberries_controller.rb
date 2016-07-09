@@ -1,7 +1,6 @@
 module Api
   module V1
     class RaspberriesController < ApplicationController
-      # before_action :authenticate, :authorize_admin
       before_action :set_raspberry, only: [:show, :update, :destroy]
 
       api :GET, '/raspberries', 'Get all Raspberries'

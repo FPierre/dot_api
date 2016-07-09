@@ -52,7 +52,7 @@ class VoiceRecognitionServerApiConnector
         @data = result&.dig :data
 
         self
-      rescue JSON::ParserError => e # JSON error
+      rescue JSON::ParserError => e
         raise Error.new e.message
       end
     else
@@ -72,9 +72,9 @@ class VoiceRecognitionServerApiConnector
       "/sarah/#{path.to_s}?#{URI.encode_www_form(options)}"
     end
 
-    def headers params = {}
-      # params.merge('Content-Type' => 'application/json', 'Accept' => 'application/json')
-    end
+    # def headers params = {}
+    #   params.merge('Content-Type' => 'application/json', 'Accept' => 'application/json')
+    # end
 
     def resource
       http = Net::HTTP.new @api_url, @api_port
