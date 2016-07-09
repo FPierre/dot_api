@@ -16,6 +16,12 @@ Redis must be started.
 $ ./bin/cable
 ```
 
+Sidekiq must be started:
+
+```bash
+$ bundle exec sidekiq
+```
+
 Config ActionCable :  Rails.configuration.action_cable
 
 
