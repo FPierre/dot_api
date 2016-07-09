@@ -46,7 +46,6 @@ daemon.follow(TWITTER_USERS_ID) do |tweet|
 
   notification = {
     content: tweet.text,
-    created_at: DateTime.now,
     duration: 1000,
     priority: 3,
     user: 'Twitter'
