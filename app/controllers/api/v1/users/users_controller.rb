@@ -2,7 +2,9 @@ module Api
   module V1
     module Users
       class UsersController < ApplicationController
-        before_action :authenticate, :authorize_admin
+        before_action :authenticate
+        before_action :authorize, only: [:show, :index, :update]
+        before_action :authorize_admin, only: :destroy
         before_action :set_user, only: [:show, :update, :destroy]
 
         api :GET, '/users', 'Get an User'
@@ -26,6 +28,11 @@ module Api
         api :PUT, '/users/:id', 'Update an User'
         meta clients: [:android_application, :web_application], status: :pending
         def update
+          # If non admin User tries to update other users
+          if !@current_user.admin? && @current_user.id != params[:id].to_i
+            render json: { droits: 'Forbidden' }, status: :forbidden and return
+          end
+
           if @user.update user_params
             render json: @user, status: :ok
           else
@@ -37,12 +44,9 @@ module Api
         error code: 200, desc: 'Ok'
         meta clients: [:android_application, :web_application], status: :pending
         def destroy
-          # ap 'API::V1::UsersController#destroyed'
           if @user.destroy
-            # ap 'destroyed'
             render json: @user, status: :ok
           else
-            # ap 'not destroyed'
             render json: @user.errors, status: :unprocessable_entity
           end
         end
