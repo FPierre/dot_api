@@ -24,6 +24,7 @@ module Api
         param :lastname,  String, desc: 'Lastname',  required: true
         param :password,  String, desc: 'Password',  required: false
         def create
+          ap user_params
           user = User.new user_params
 
           # OPTIMIZE email est de toute façon obligatoire ?
@@ -46,7 +47,7 @@ module Api
 
         private
           def user_params
-            params.permit :email, :firstname, :lastname, :password
+            params.permit :admin, :approved, :email, :firstname, :lastname, :password
           end
 
         protected
