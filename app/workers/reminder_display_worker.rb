@@ -4,6 +4,7 @@ class ReminderDisplayWorker
   def perform id
     ap 'ReminderDisplayWorker#perform'
     reminder = Reminder.find id
+    # reminder = Reminder.last
   rescue ActiveRecord::RecordNotFound => e
     ap e.message
   else

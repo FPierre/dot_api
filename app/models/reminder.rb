@@ -14,7 +14,12 @@ class Reminder < ApplicationRecord
   }
   validates :user, presence: true
 
-  after_save -> { ReminderDisplayWorker.perform_at(displayed_at, id) if displayed_at }
+  # after_save -> { ReminderDisplayWorker.perform_at(displayed_at, id) if displayed_at >= DateTime.now }
+  after_commit :sidekiq_enqueue, on: :create
+
+  def sidekiq_enqueue
+    ReminderDisplayWorker.perform_at(displayed_at, id) if displayed_at
+  end
 
   def to_serialize
     ActiveModelSerializers::SerializableResource.new(self, {}).as_json
