@@ -16,11 +16,13 @@ Redis must be started.
 $ ./bin/cable
 ```
 
-Sidekiq must be started:
+Sidekiq must be started (and must have the right environment):
 
 ```bash
-$ bundle exec sidekiq
+$ bundle exec sidekiq -d -e production
 ```
+
+ruby twitter_daemon.rb start
 
 Config ActionCable :  Rails.configuration.action_cable
 
