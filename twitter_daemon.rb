@@ -29,13 +29,14 @@ end
 TWITTER_USERS_ID = [
   124717202,  # @s_dumontier
   27488470,   # @Fred_Burtz
-  3004133231, # itnovem
+  3004133231, # @itnovem
   304499208,  # @Florence_two
   335948578,  # @OReinsbach
   432492827,  # @SNCF_infopresse
   4924388109, # @Emma_Turlotte
-  533047414,  # SNCF_Digital
-  69107325,   # JPLouva
+  533047414,  # @SNCF_Digital
+  69107325,   # @JPLouva
+  4853273541, # @dot_project_16
 ]
 
 # daemon.track('SNCF') do |tweet|
@@ -45,10 +46,14 @@ daemon.follow(TWITTER_USERS_ID) do |tweet|
   puts "#{tweet.text}"
 
   notification = {
-    content: tweet.text,
-    duration: 1000,
-    priority: 3,
-    user: 'Twitter'
+    data: {
+      attributes: {
+        content: tweet.text,
+        duration: 1000,
+        priority: 3,
+        user: 'Twitter'
+      }
+    }
   }
 
   ActionCable.server.broadcast 'notification_channel', notification: notification
