@@ -1,0 +1,29 @@
+fr:
+  activerecord:
+    attributes:
+      user:
+        admin: Administrateur
+        approved: Approuvé
+        authentication_token: Token
+        created_at: Date de création
+        email: Adresse email
+        encrypted_password: Mot de passe
+        firstname: Prénom
+        lastname: Nom
+        updated_at: Date de mise à jour
+    errors:
+      models:
+        user:
+          forbidden: 'Interdit'
+          unauthorized: 'Non autorisé'
+          attributes:
+            firstname:
+              blank: Le prénom doit être renseigné
+            lastname:
+              blank: Le nom doit être renseigné
+            email:
+              blank: L'adresse email doit être renseignée
+    models:
+      user:
+        one: utilisateur
+        other: utilisateurs
