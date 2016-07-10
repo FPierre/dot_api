@@ -22,11 +22,13 @@ class ApplicationController < ActionController::API
 
     def render_unauthorized realm = 'Application'
       self.headers['WWW-Authenticate'] = %(Token realm="#{realm.gsub(/"/, "")}")
-      render json: 'Unauthorized', status: :unauthorized
+
+      render json: { droits: 'Unauthorized' }, status: :unauthorized
     end
 
     def render_forbidden realm = 'Application'
       self.headers['WWW-Authenticate'] = %(Token realm="#{realm.gsub(/"/, "")}")
-      render json: 'Forbidden', status: :forbidden
+
+      render json: { droits: 'Forbidden' }, status: :forbidden
     end
 end
