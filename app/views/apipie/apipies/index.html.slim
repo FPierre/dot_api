@@ -32,7 +32,7 @@
 
                   .col.s2.m1
                     - if method.dig :metadata, :status
-                      - if method[:metadata][:status] == :pending
+                      - if method[:metadata][:status] == :ok
                         = fa_icon 'question'
                       - elsif method[:metadata][:status] == :ok
                         = fa_icon 'check', class: 'green-text text-lighten-2'

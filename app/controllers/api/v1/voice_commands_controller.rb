@@ -5,7 +5,7 @@ module Api
 
       api :GET, '/voice_commands', 'Get all voice commands for SARAH'
       error code: 200, desc: 'Ok'
-      meta clients: [:android_application, :web_application], status: :pending
+      meta clients: [:android_application, :web_application], status: :ok
       example <<-EOS
         {
           "data": [

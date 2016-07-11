@@ -3,6 +3,7 @@ module Api
     class WeatherController < ApplicationController
       def show
         weather_client = WeatherService.new
+
         data = {
           data: {
             weather: weather_client.current_weather,

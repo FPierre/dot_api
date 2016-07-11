@@ -27,16 +27,16 @@ module Api
       end
 
       api :PUT, '/settings/1', 'Update the Setting object'
-      meta clients: [:android_application, :web_application], status: :pending
+      meta clients: [:android_application, :web_application], status: :ok
       def update
         if @setting.update setting_params
           # Set the room state, whatever its previous state
           if setting_params.include? :room_occupied
             ap "API::V1::SettingsController#update room_occupied to #{@setting.room_occupied}"
 
-            # raspberry_api_connector = RaspberryApiConnector.new
+            raspberry_api_connector = RaspberryApiConnector.new
 
-            # raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
+            raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
 
             ActionCable.server.broadcast 'room_mode_channel', room_occupied: @setting.room_occupied
           end
@@ -70,7 +70,7 @@ module Api
       end
 
       api :PUT, '/settings/1/sarah_enabled', 'Update the SARAH state'
-      meta clients: [:sarah], status: :pending
+      meta clients: [:sarah], status: :ok
       def update_sarah_enabled
         @setting.update setting_params_sarah
 

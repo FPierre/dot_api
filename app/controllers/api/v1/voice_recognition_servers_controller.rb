@@ -3,7 +3,7 @@ module Api
     class VoiceRecognitionServersController < ApplicationController
       before_action :set_voice_recognition_server, only: [:show, :update]
 
-      api :GET, '/voice_recognition_servers/1', 'Get the Voice Recognition Server object'
+      api :GET, '/voice_recognition_servers/1', 'Get the Voice Recognition Server'
       example <<-EOS
         {
           "data": {
@@ -20,8 +20,8 @@ module Api
         render json: @voice_recognition_server
       end
 
-      api :PUT, '/voice_recognition_servers/1', 'Update the Voice Recognition Server object'
-      meta clients: [:sarah, :web_application], status: :pending
+      api :PUT, '/voice_recognition_servers/1', 'Update the Voice Recognition Server'
+      meta clients: [:sarah, :web_application], status: :ok
       def update
         if @voice_recognition_server.update voice_recognition_server_params
           render json: @voice_recognition_server, status: :ok
