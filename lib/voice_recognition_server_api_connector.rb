@@ -72,9 +72,9 @@ class VoiceRecognitionServerApiConnector
       "/sarah/#{path.to_s}?#{URI.encode_www_form(options)}"
     end
 
-    # def headers params = {}
-    #   params.merge('Content-Type' => 'application/json', 'Accept' => 'application/json')
-    # end
+    def headers params = {}
+      params.merge('Content-Type' => 'application/json', 'Accept' => 'application/json')
+    end
 
     def resource
       http = Net::HTTP.new @api_url, @api_port
