@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module Api
   module V1
     class ScreensController < ApplicationController
