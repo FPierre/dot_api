@@ -1,6 +1,7 @@
 module Api
   module V1
     class WeatherController < ApplicationController
+      api :GET, '/weather', 'Return weather information from Paris'
       def show
         weather_client = WeatherService.new
 

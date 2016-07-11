@@ -1,6 +1,8 @@
 module Api
   module V1
     class RaspberriesController < ApplicationController
+      before_action :authenticate, only: :destroy
+      before_action :authorize_admin, only: :destroy
       before_action :set_raspberry, only: [:show, :update, :destroy]
 
       api :GET, '/raspberries', 'Get all Raspberries'
@@ -11,12 +13,12 @@ module Api
               "id": "1",
               "type": "raspberries",
               "attributes": {
-                "api_port": 8080,
+                "api-port": 8080,
                 "created-at": "2016-06-06T21:42:53.000+02:00",
-                "domain_name": '42.fr',
+                "domain-name": '42.fr',
                 "ip-address": "42.42.42.42",
                 "mac-address": "42:42:51:7D:1C:02",
-                "master_device": false,
+                "master-device": false,
                 "name": "Raspberry 1"
               }
             }
@@ -34,12 +36,12 @@ module Api
             "id": "1",
             "type": "raspberries",
             "attributes": {
-              "api_port": 8080,
+              "api-port": 8080,
               "created-at": "2016-06-06T21:42:53.000+02:00",
-              "domain_name": '42.fr',
+              "domain-name": '42.fr',
               "ip-address": "42.42.42.42",
               "mac-address": "42:42:51:7D:1C:02",
-              "master_device": false,
+              "master-device": false,
               "name": "Raspberry 1"
             }
           }
@@ -88,6 +90,7 @@ module Api
       api :DELETE, '/raspberries/:id', 'Delete a Raspberry'
       error code: 204, desc: 'No content'
       error code: 422, desc: 'Unprocessable entity'
+      meta access: [:admin]
       def destroy
         if @raspberry.destroy
           render json: @raspberry, status: :no_content

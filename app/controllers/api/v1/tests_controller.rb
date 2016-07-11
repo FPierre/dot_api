@@ -6,17 +6,18 @@ module Api
       api :GET, '/tests/ping', 'Get the API status'
       description "If the API is up, returns 'pong'"
       error code: 200, desc: 'Ok'
+      meta access: [:approved, :admin]
       example <<-EOS
         {
           "data": "pong"
         }
       EOS
-      meta status: :ok
       def ping
         render json: { data: 'pong' }
       end
 
       api :POST, '/tests/voice'
+      meta access: [:approved, :admin]
       def voice
         voice_recognition_server_api_connector = VoiceRecognitionServerApiConnector.new
 

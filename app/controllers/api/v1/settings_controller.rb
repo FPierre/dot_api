@@ -3,7 +3,8 @@ require 'net/http'
 module Api
   module V1
     class SettingsController < ApplicationController
-      before_action :authenticate, :authorize, only: :update
+      before_action :authenticate, only: :update
+      before_action :authorize, only: :update
       before_action :set_setting, only: [:show, :update, :update_sarah_enabled]
 
       api :GET, '/settings/1', 'Get the Setting object'
@@ -27,6 +28,7 @@ module Api
       end
 
       api :PUT, '/settings/1', 'Update the Setting object'
+      meta access: [:approved, :admin]
       def update
         if @setting.update setting_params
           # Set the room state, whatever its previous state

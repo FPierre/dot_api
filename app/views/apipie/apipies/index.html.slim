@@ -18,21 +18,29 @@
             li
               .collapsible-header
                 .row
-                  .col.s1
+                  .col.s3.m1
                     span class="chip #{a[:http_method].downcase!}" = a[:http_method]
 
-                  .col.s5.truncate
+                  .col.s8.m5.truncate
                     = a[:api_url]
 
-                  .col.s6.truncate
+                  .col.m6.hide-on-small-only.truncate
                     = a[:short_description]
 
               .collapsible-body
-                .row
-                  .col.s12
-                    h3 Full description
+                - if a[:short_description].present?
+                  .row
+                    .col.s12.hide-on-med-and-up
+                      h3 Short description
 
-                    = raw method[:full_description]
+                      = a[:short_description]
+
+                - if method[:full_description].present?
+                  .row
+                    .col.s12
+                      h3 Full description
+
+                      = raw method[:full_description]
 
                 - if method[:params].present?
                   .row
@@ -58,6 +66,13 @@
                                   = fa_icon 'check-circle', class: 'fa-2x green-text text-lighten-2'
                                 - else
                                   = fa_icon 'times-circle', class: 'fa-2x red-text text-lighten-2'
+
+                - if method.dig :metadata, :access
+                  .row
+                    .col.s12
+                      h3 Access
+
+                      = method.dig(:metadata, :access).to_sentence
 
                 - if method[:errors].present?
                   .row

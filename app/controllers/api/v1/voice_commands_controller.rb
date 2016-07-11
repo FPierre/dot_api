@@ -5,6 +5,7 @@ module Api
 
       api :GET, '/voice_commands', 'Get all voice commands for SARAH'
       error code: 200, desc: 'Ok'
+      meta access: [:approved, :admin]
       example <<-EOS
         {
           "data": [

@@ -4,7 +4,8 @@ module Api
       before_action :authenticate, :authorize
       before_action :set_reminder, only: [:show, :destroy]
 
-      api :GET, '/reminders', 'Get all Reminders'
+      api :GET, '/reminders', 'Get last 10 Reminders'
+      meta access: [:approved, :admin]
       example <<-EOS
         {
           "data": [
@@ -39,6 +40,7 @@ module Api
       end
 
       api :GET, '/reminders/:id', 'Get a Reminder'
+      meta access: [:approved, :admin]
       example <<-EOS
         {
           "data": {
@@ -73,6 +75,7 @@ module Api
       param :priority,     [1, 2, 3], desc: 'Priority'
       param :title,        String,    desc: 'Title'
       param :user_id,      Integer,   desc: 'User ID',          required: true
+      meta access: [:approved, :admin]
       def create
         if params[:user_id].present? && User.find(params[:user_id])
           reminder = Reminder.new reminder_params
@@ -88,6 +91,7 @@ module Api
       api :DELETE, '/reminders/:id', 'Delete a Reminder'
       error code: 200, desc: 'Ok'
       error code: 422, desc: 'Unprocessable entity'
+      meta access: [:approved, :admin]
       def destroy
         if @reminder.destroy
           render json: @reminder, status: :ok
