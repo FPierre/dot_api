@@ -9,7 +9,6 @@ module Api
       description 'Make a request to the Google Map API to search the car route between the city "from" and the city "to".'
       error code: 400, desc: 'Bad request'
       error code: 200, desc: 'Ok'
-      meta clients: [:sarah], status: :ok
       param :from, String, desc: 'Departure city', required: true
       param :to,   String, desc: 'Arrival city',   required: true
       def path

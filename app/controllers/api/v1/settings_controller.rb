@@ -27,7 +27,6 @@ module Api
       end
 
       api :PUT, '/settings/1', 'Update the Setting object'
-      meta clients: [:android_application, :web_application], status: :ok
       def update
         if @setting.update setting_params
           # Set the room state, whatever its previous state
@@ -70,7 +69,6 @@ module Api
       end
 
       api :PUT, '/settings/1/sarah_enabled', 'Update the SARAH state'
-      meta clients: [:sarah], status: :ok
       def update_sarah_enabled
         @setting.update setting_params_sarah
 

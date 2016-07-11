@@ -5,7 +5,6 @@ module Api
       before_action :set_reminder, only: [:show, :destroy]
 
       api :GET, '/reminders', 'Get all Reminders'
-      meta clients: [:android_application, :web_application], status: :ok
       example <<-EOS
         {
           "data": [
@@ -41,7 +40,6 @@ module Api
       end
 
       api :GET, '/reminders/:id', 'Get a Reminder'
-      meta clients: [:android_application, :web_application], status: :ok
       example <<-EOS
         {
           "data": {
@@ -70,7 +68,6 @@ module Api
       description "Create a Reminder and display it immediatly on internal screen if no displayed_at datetime is given"
       error code: 201, desc: 'Created'
       error code: 422, desc: 'Unprocessable entity'
-      meta clients: [:android_application, :web_application], status: :ok
       param :content,      String,    desc: 'Content',          required: true
       param :displayed_at, DateTime,  desc: 'Trigger datetime'
       param :duration,     [1..60],   desc: 'Duration',         required: true
@@ -92,7 +89,6 @@ module Api
       api :DELETE, '/reminders/:id', 'Delete a Reminder'
       error code: 200, desc: 'Ok'
       error code: 422, desc: 'Unprocessable entity'
-      meta clients: [:android_application, :web_application], status: :ok
       def destroy
         if @reminder.destroy
           render json: @reminder, status: :ok

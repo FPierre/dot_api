@@ -18,47 +18,21 @@
             li
               .collapsible-header
                 .row
-                  .col.m1.hide-on-small-only
+                  .col.s1
                     span class="chip #{a[:http_method].downcase!}" = a[:http_method]
 
-                  .col.s12.m5.truncate
+                  .col.s5.truncate
                     = a[:api_url]
 
-                  .col.s2.hide-on-med-and-up
-                    span class="chip #{a[:http_method].downcase!}" = a[:http_method]
-
-                  .col.s8.m5.truncate
+                  .col.s6.truncate
                     = a[:short_description]
-
-                  .col.s2.m1
-                    - if method.dig :metadata, :status
-                      - if method[:metadata][:status] == :ok
-                        = fa_icon 'question'
-                      - elsif method[:metadata][:status] == :ok
-                        = fa_icon 'check', class: 'green-text text-lighten-2'
-                      - elsif method[:metadata][:status] == :ko
-                        = fa_icon 'times', class: 'red-text text-lighten-2'
-                    - else
-                      = fa_icon 'question'
 
               .collapsible-body
                 .row
-                  .col.s12.m9
+                  .col.s12
                     h3 Full description
 
                     = raw method[:full_description]
-
-                  .col.s12.m3
-                    h3 Clients
-
-                    - if method.dig :metadata, :clients
-                      - method[:metadata][:clients].each do |client|
-                        - if client == :android_application
-                          = fa_icon 'android 2x'
-                        - elsif client == :web_application
-                          = fa_icon 'chrome 2x'
-                        - elsif client == :sarah
-                          = fa_icon 'microphone 2x'
 
                 - if method[:params].present?
                   .row

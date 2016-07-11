@@ -21,7 +21,6 @@ module Api
       end
 
       api :PUT, '/voice_recognition_servers/1', 'Update the Voice Recognition Server'
-      meta clients: [:sarah, :web_application], status: :ok
       def update
         if @voice_recognition_server.update voice_recognition_server_params
           render json: @voice_recognition_server, status: :ok

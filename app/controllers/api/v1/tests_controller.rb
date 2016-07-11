@@ -11,7 +11,7 @@ module Api
           "data": "pong"
         }
       EOS
-      meta clients: [:android_application, :sarah, :web_application], status: :ok
+      meta status: :ok
       def ping
         render json: { data: 'pong' }
       end
