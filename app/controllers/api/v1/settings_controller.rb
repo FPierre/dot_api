@@ -34,9 +34,9 @@ module Api
           if setting_params.include? :room_occupied
             ap "API::V1::SettingsController#update room_occupied to #{@setting.room_occupied}"
 
-            # raspberry_api_connector = RaspberryApiConnector.new
+            raspberry_api_connector = RaspberryApiConnector.new
 
-            # raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
+            raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
 
             ActionCable.server.broadcast 'room_mode_channel', room_occupied: @setting.room_occupied
           end
