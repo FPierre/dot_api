@@ -1,5 +1,6 @@
 require 'open_weather'
 
+# Get OpenWeather information
 class WeatherService
   attr_accessor :response
 

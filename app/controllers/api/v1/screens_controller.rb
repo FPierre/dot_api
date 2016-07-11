@@ -39,6 +39,7 @@ module Api
           to = { lat: to.dig('lat'), lon: to.dig('lng') }
         end
 
+        # Send to Websocket client lat/lon from 'from' and 'to'
         ActionCable.server.broadcast 'path_channel', path: { from: from, to: to }
 
         head :ok

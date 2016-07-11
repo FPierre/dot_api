@@ -19,8 +19,10 @@ module Api
       api :POST, '/tests/voice'
       meta access: [:approved, :admin]
       def voice
+        # Connecte to SARAH API
         voice_recognition_server_api_connector = VoiceRecognitionServerApiConnector.new
 
+        # Send text to SARAH
         voice_recognition_server_api_connector.get_text_to_speech text: params[:text]
       end
     end

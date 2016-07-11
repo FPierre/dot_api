@@ -35,13 +35,16 @@ module Api
           if setting_params.include? :room_occupied
             ap "API::V1::SettingsController#update room_occupied to #{@setting.room_occupied}"
 
+            # Connected to Raspberry Pi API
             raspberry_api_connector = RaspberryApiConnector.new
 
             begin
+              # Send room mode
               raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
             rescue RaspberryApiConnector::Error => e
               render json: { error: 'Service_unavailable' }, status: :service_unavailable and return
             else
+              # Send to Websocket client new room mode
               ActionCable.server.broadcast 'room_mode_channel', room_occupied: @setting.room_occupied
             end
           end
@@ -56,6 +59,7 @@ module Api
 
             ap "API::V1::SettingsController#update screen_guest_enabled to #{mode}"
 
+            # Send to Websocket client new screen mode
             ActionCable.server.broadcast 'screen_mode_channel', mode: mode
           end
 
@@ -63,8 +67,10 @@ module Api
           if setting_params.include? :sarah_enabled
             ap "API::V1::SettingsController#update sarah_enabled to #{sarah_enabled}"
 
+            # Connect to SARAH API
             voice_recognition_server_api_connector = VoiceRecognitionServerApiConnector.new
 
+            # Send to SARAH new sleep state
             voice_recognition_server_api_connector.get_sleep_mode reveil: @setting.sarah_enabled
           end
 
