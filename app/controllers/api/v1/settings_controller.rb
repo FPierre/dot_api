@@ -35,9 +35,13 @@ module Api
 
             raspberry_api_connector = RaspberryApiConnector.new
 
-            raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
-
-            ActionCable.server.broadcast 'room_mode_channel', room_occupied: @setting.room_occupied
+            begin
+              raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
+            rescue RaspberryApiConnector::Error => e
+              render json: { error: 'Service_unavailable' }, status: :service_unavailable and return
+            else
+              ActionCable.server.broadcast 'room_mode_channel', room_occupied: @setting.room_occupied
+            end
           end
 
           # Set the screen mode, whatever its previous state
