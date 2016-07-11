@@ -14,12 +14,6 @@ class RaspberryApiConnector
 
     @api_port = raspberry.api_port
     @api_url  = raspberry.domain_name
-<<<<<<< HEAD
-
-    ap @api_port
-    ap @api_url
-=======
->>>>>>> 1e4c40c71bab0c2206f2d83792c3f811a4a1cfde
   rescue NoMethodError => e
     raise Error.new "Please add 'api_url' and 'api_port' keys into your configuration"
   end
