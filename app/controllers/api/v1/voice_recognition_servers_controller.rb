@@ -36,7 +36,7 @@ module Api
         end
 
         def voice_recognition_server_params
-          params.permit :api_port, :ip_address, :mac_address
+          params.permit :api_port, :domain_name, :ip_address, :mac_address
         end
     end
   end
