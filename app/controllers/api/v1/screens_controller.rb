@@ -1,7 +1,7 @@
 module Api
   module V1
     class ScreensController < ApplicationController
-      before_action :authenticate, :authorize
+      before_action :authenticate, :authorize, only: :resize
 
       api :GET, '/screens/path/from/:from/to/:to', 'Display the path between two cities'
       description 'Make a request to the Google Map API to search the car route between the city "from" and the city "to".'
@@ -53,11 +53,13 @@ module Api
         end
       end
 
+      # TODO Encore utilisée
       api :GET, '/screens/team', 'Screen to team mode'
       def team
         ActionCable.server.broadcast 'screen_mode_channel', mode: :team
       end
 
+      # TODO Encore utilisée
       api :GET, '/screens/guest', 'Screen to guest mode'
       def guest
         ActionCable.server.broadcast 'screen_mode_channel', mode: :guest

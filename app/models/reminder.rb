@@ -15,10 +15,17 @@ class Reminder < ApplicationRecord
   validates :user, presence: true
 
   # after_save -> { ReminderDisplayWorker.perform_at(displayed_at, id) if displayed_at >= DateTime.now }
-  after_commit :sidekiq_enqueue, on: :create
+  after_save :broadcast_to_channel, unless: Proc.new { |reminder| reminder.displayed_at? }
+  after_commit :sidekiq_enqueue, on: :create, if: Proc.new { |reminder| reminder.displayed_at? }
+
+  def broadcast_to_channel
+    if Setting.first.reminders_enabled
+      ActionCable.server.broadcast 'notification_channel', notification: self.to_serialize
+    end
+  end
 
   def sidekiq_enqueue
-    ReminderDisplayWorker.perform_at(displayed_at, id) if displayed_at
+    ReminderDisplayWorker.perform_at(displayed_at, id)
   end
 
   def to_serialize
