@@ -5,7 +5,7 @@
 Run Web server:
 
 ```bash
-$ bundle exec puma -d -e production -C config/puma_web.rb
+$ bundle exec puma -e production -C config/puma_web.rb -d
 ```
 
 Run Websocket server:
