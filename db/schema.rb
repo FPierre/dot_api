@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627171813) do
+ActiveRecord::Schema.define(version: 20160711130055) do
 
   create_table "raspberries", force: :cascade do |t|
     t.string   "name",          limit: 255,                 null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20160627171813) do
     t.datetime "updated_at",                                null: false
     t.integer  "api_port"
     t.boolean  "master_device",             default: false
+    t.string   "domain_name"
   end
 
   create_table "reminders", force: :cascade do |t|

@@ -103,7 +103,7 @@ module Api
         end
 
         def raspberry_params
-          params.permit :api_port, :master_device, :ip_address, :mac_address, :name
+          params.permit :api_port, :domain_name, :master_device, :ip_address, :mac_address, :name
         end
     end
   end
