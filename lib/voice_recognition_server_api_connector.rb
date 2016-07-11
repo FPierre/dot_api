@@ -31,7 +31,7 @@ class VoiceRecognitionServerApiConnector
   end
 
   def get_text_to_speech options = {}
-    process { resource.get(route_for('dot_text_to_speech', options), headers) }
+    process { resource.get(route_for('dot_text_to_speech', options)) }
   end
 
   def get_sleep_mode options = {}
