@@ -4,10 +4,11 @@ class ReminderDisplayWorker
   def perform id
     ap 'ReminderDisplayWorker#perform'
     reminder = Reminder.find id
-    # reminder = Reminder.last
   rescue ActiveRecord::RecordNotFound => e
     ap e.message
   else
-    ActionCable.server.broadcast 'notification_channel', notification: reminder.to_serialize
+    if Setting.first.reminders_enabled
+      ActionCable.server.broadcast 'notification_channel', notification: reminder.to_serialize
+    end
   end
 end

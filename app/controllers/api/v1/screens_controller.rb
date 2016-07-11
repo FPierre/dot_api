@@ -55,11 +55,13 @@ module Api
         end
       end
 
+      # TODO Encore utilisée
       api :GET, '/screens/team', 'Screen to team mode'
       def team
         ActionCable.server.broadcast 'screen_mode_channel', mode: :team
       end
 
+      # TODO Encore utilisée
       api :GET, '/screens/guest', 'Screen to guest mode'
       def guest
         ActionCable.server.broadcast 'screen_mode_channel', mode: :guest
