@@ -4,14 +4,7 @@
 
 @import 'font-awesome';
 @import 'base/fonts';
-// @import 'base/custom';
 @import 'materialize';
-// @import 'base/mixins';
-// @import 'base/global';
-// @import 'components/*';
-// @import 'partials/*';
-// @import 'views/**/*';
-// @import 'layouts/*';
 
 h1 {
   font-size: 2.6rem;
@@ -58,8 +51,8 @@ h2 {
       @extend .purple, .lighten-4;
     }
 
-    &.put {
-      @extend .red, .lighten-4;
+    &.delete {
+      @extend .red, .lighten-3;
     }
   }
 

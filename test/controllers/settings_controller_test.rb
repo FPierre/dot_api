@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SettingsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @setting = settings(:one)
+    @setting = settings :one
   end
 
   test "should show setting" do
@@ -11,7 +11,10 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update setting" do
-    patch api_v1_setting_url(@setting), params: { setting: {  } }
+    request_with_token :admin do |params|
+      patch params.api_v1_setting_url(@setting), params: {}
+    end
+
     assert_response 200
   end
 end

@@ -5,7 +5,6 @@ module Api
         api :POST, '/sign_in', 'Connect an User'
         error code: 422, desc: 'Unprocessable entity'
         error code: 200, desc: 'Ok'
-        meta clients: [:android_application, :web_application], status: :ok
         param :email,    String, desc: 'Email',    required: true
         param :password, String, desc: 'Password', required: true
         def create

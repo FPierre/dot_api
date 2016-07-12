@@ -3,7 +3,8 @@ require 'net/http'
 module Api
   module V1
     class SettingsController < ApplicationController
-      before_action :authenticate, :authorize, only: :update
+      before_action :authenticate, only: :update
+      before_action :authorize, only: :update
       before_action :set_setting, only: [:show, :update, :update_sarah_enabled]
 
       api :GET, '/settings/1', 'Get the Setting object'
@@ -27,18 +28,25 @@ module Api
       end
 
       api :PUT, '/settings/1', 'Update the Setting object'
-      meta clients: [:android_application, :web_application], status: :ok
+      meta access: [:approved, :admin]
       def update
         if @setting.update setting_params
           # Set the room state, whatever its previous state
           if setting_params.include? :room_occupied
             ap "API::V1::SettingsController#update room_occupied to #{@setting.room_occupied}"
 
+            # Connected to Raspberry Pi API
             raspberry_api_connector = RaspberryApiConnector.new
 
-            raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
-
-            ActionCable.server.broadcast 'room_mode_channel', room_occupied: @setting.room_occupied
+            begin
+              # Send room mode
+              raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
+            rescue RaspberryApiConnector::Error => e
+              render json: { error: 'Service_unavailable' }, status: :service_unavailable and return
+            else
+              # Send to Websocket client new room mode
+              ActionCable.server.broadcast 'room_mode_channel', room_occupied: @setting.room_occupied
+            end
           end
 
           # Set the screen mode, whatever its previous state
@@ -51,6 +59,7 @@ module Api
 
             ap "API::V1::SettingsController#update screen_guest_enabled to #{mode}"
 
+            # Send to Websocket client new screen mode
             ActionCable.server.broadcast 'screen_mode_channel', mode: mode
           end
 
@@ -58,8 +67,10 @@ module Api
           if setting_params.include? :sarah_enabled
             ap "API::V1::SettingsController#update sarah_enabled to #{@setting.sarah_enabled}"
 
+            # Connect to SARAH API
             voice_recognition_server_api_connector = VoiceRecognitionServerApiConnector.new
 
+            # Send to SARAH new sleep state
             voice_recognition_server_api_connector.get_sleep_mode reveil: @setting.sarah_enabled
           end
 
@@ -70,7 +81,6 @@ module Api
       end
 
       api :PUT, '/settings/1/sarah_enabled', 'Update the SARAH state'
-      meta clients: [:sarah], status: :ok
       def update_sarah_enabled
         @setting.update setting_params_sarah
 

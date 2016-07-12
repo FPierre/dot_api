@@ -11,22 +11,18 @@ module Api
         # desc "Return a list of all Users if the current user is administrator."
         # error code: 403, desc: 'Forbidden'
         # error code: 200, desc: 'Ok'
-        # meta clients: [:android_application, :web_application], status: :ok
         def show
           render json: @user
         end
 
         api :GET, '/users', 'Get all Users'
-        desc "Return a list of all Users if the current user is administrator."
         error code: 403, desc: 'Forbidden'
         error code: 200, desc: 'Ok'
-        meta clients: [:android_application, :web_application], status: :ok
         def index
           render json: User.all
         end
 
         api :PUT, '/users/:id', 'Update an User'
-        meta clients: [:android_application, :web_application], status: :ok
         def update
           # If non admin User tries to update other users
           if !@current_user.admin? && @current_user.id != params[:id].to_i
@@ -42,7 +38,6 @@ module Api
 
         api :DELETE, '/users/:id', 'Delete an User'
         error code: 200, desc: 'Ok'
-        meta clients: [:android_application, :web_application], status: :ok
         def destroy
           if @user.destroy
             render json: @user, status: :ok

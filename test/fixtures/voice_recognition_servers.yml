@@ -1,3 +1,5 @@
 one:
-  ip_address: MyString
-  mac_address: MyString
+  api_port: 8888
+  domain_name: domain-name.com
+  ip_address: 32.147.150.1
+  mac_address: 24-F1-FB-A3-4C-B0

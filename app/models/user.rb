@@ -13,6 +13,7 @@ class User < ApplicationRecord
     %Q(#{self.firstname} #{self.lastname})
   end
 
+  # Generate API token
   def ensure_authentication_token
     self.authentication_token = generate_token if authentication_token.blank?
   end
@@ -24,16 +25,4 @@ class User < ApplicationRecord
         break token unless User.find_by authentication_token: token
       end
     end
-
-  # def active_for_authentication?
-  #   super && approved?
-  # end
-
-  # def inactive_message
-  #   if !approved?
-  #     :not_approved
-  #   else
-  #     super
-  #   end
-  # end
 end

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 module Api
   module V1
     class ScreensController < ApplicationController
@@ -9,7 +8,6 @@ module Api
       description 'Make a request to the Google Map API to search the car route between the city "from" and the city "to".'
       error code: 400, desc: 'Bad request'
       error code: 200, desc: 'Ok'
-      meta clients: [:sarah], status: :ok
       param :from, String, desc: 'Departure city', required: true
       param :to,   String, desc: 'Arrival city',   required: true
       def path
@@ -41,6 +39,7 @@ module Api
           to = { lat: to.dig('lat'), lon: to.dig('lng') }
         end
 
+        # Send to Websocket client lat/lon from 'from' and 'to'
         ActionCable.server.broadcast 'path_channel', path: { from: from, to: to }
 
         head :ok
@@ -49,23 +48,24 @@ module Api
       api :GET, '/screens/resize/zone/:zone/size/:size', 'Resize a zone'
       param :zone, [:one, :two],   desc: 'Zone ID', required: true
       param :size, [:full, :half], desc: 'Size',    required: true
+      meta access: [:approved, :admin]
       def resize
         if params[:zone].present? && params[:size].present?
           ActionCable.server.broadcast 'resize_channel', zone: params[:zone], size: params[:size]
         end
       end
 
-      # TODO Encore utilisée
-      api :GET, '/screens/team', 'Screen to team mode'
-      def team
-        ActionCable.server.broadcast 'screen_mode_channel', mode: :team
-      end
+      # TODO Encore utilisée ?
+      # api :GET, '/screens/team', 'Screen to team mode'
+      # def team
+      #   ActionCable.server.broadcast 'screen_mode_channel', mode: :team
+      # end
 
-      # TODO Encore utilisée
-      api :GET, '/screens/guest', 'Screen to guest mode'
-      def guest
-        ActionCable.server.broadcast 'screen_mode_channel', mode: :guest
-      end
+      # TODO Encore utilisée ?
+      # api :GET, '/screens/guest', 'Screen to guest mode'
+      # def guest
+      #   ActionCable.server.broadcast 'screen_mode_channel', mode: :guest
+      # end
     end
   end
 end

@@ -6,7 +6,7 @@ module RequestTokenHelper
   def request_with_token user_status
     user = users("user_#{user_status}")
 
-    with_options params: { email: user.email, token: user.authentication_token } do |params|
+    with_options params: { user_email: user.email, user_token: user.authentication_token } do |params|
       yield params
     end
   end
