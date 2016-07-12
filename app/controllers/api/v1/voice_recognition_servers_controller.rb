@@ -10,8 +10,10 @@ module Api
             "id": "1",
             "type": "voice_recognition_servers",
             "attributes": {
+              "api_port": nil,
+              "domain_name": nil,
               "ip_address": nil,
-              "mac_address": nil,
+              "mac_address": nil
             }
           }
         }

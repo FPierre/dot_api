@@ -47,12 +47,12 @@ module Api
             "id": "9",
             "type": "reminders",
             "attributes": {
-              "content": "test2",
+              "content": "Reminder content",
               "created-at": "2016-05-28T15:58:06.000Z",
               "displayed-at": "2016-05-29T00:00:00.000Z",
               "duration": 10,
               "priority": 1,
-              "title": "test2",
+              "title": "Reminder for test",
               "type": "alert",
               "user": "Pierre Flauder",
               "displayed": false,
@@ -98,6 +98,13 @@ module Api
         else
           render json: @reminder.errors, status: :unprocessable_entity
         end
+      end
+
+      api :DELETE, '/reminders/erase_all', 'Erase all displayed Reminders from screen'
+      def erase_all
+        ActionCable.server.broadcast 'notification_channel', action: 'eraseAll'
+
+        head :ok
       end
 
       private

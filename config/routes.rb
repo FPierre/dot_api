@@ -15,8 +15,6 @@ Rails.application.routes.draw do
       namespace :screens do
         get 'path/from/:from/to/:to', action: 'path'
         get 'resize/zone/:zone/size/:size', action: 'resize'
-        get 'team'
-        get 'guest'
       end
 
       namespace :tests do
@@ -25,7 +23,9 @@ Rails.application.routes.draw do
       end
 
       resources :raspberries, only: [:index, :show, :create, :update, :destroy]
-      resources :reminders, only: [:index, :show, :create, :destroy]
+      resources :reminders, only: [:index, :show, :create, :destroy] do
+        delete :erase_all, on: :collection
+      end
       resources :settings, only: [:show, :update] do
         put 'sarah_enabled'
       end

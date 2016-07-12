@@ -16,7 +16,7 @@ module Api
         render json: { data: 'pong' }
       end
 
-      api :POST, '/tests/voice'
+      api :POST, '/tests/voice', 'Send text to be repeated by the voice recognition'
       meta access: [:approved, :admin]
       def voice
         # Connecte to SARAH API

@@ -1,4 +1,7 @@
 one:
-  name: Raspberry Pi One
-  ip_address: 24.147.150.167
+  api_port: 8888
+  domain_name: domain-name.com
+  ip_address: 32.147.150.167
   mac_address: 29-F1-EB-C8-4F-B0
+  master_device: true
+  name: Raspberry Pi Master

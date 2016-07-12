@@ -16,7 +16,6 @@ module Api
         end
 
         api :GET, '/users', 'Get all Users'
-        desc "Return a list of all Users if the current user is administrator."
         error code: 403, desc: 'Forbidden'
         error code: 200, desc: 'Ok'
         def index

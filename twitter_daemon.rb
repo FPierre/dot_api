@@ -1,5 +1,9 @@
 require 'tweetstream'
 
+# Start: ruby twitter_daemon.rb start
+# Restart: ruby twitter_daemon.rb restart
+# Stop: ruby twitter_daemon.rb stop
+
 ENV['RAILS_ENV'] ||= 'production'
 
 root = File.expand_path(File.join(File.dirname(__FILE__), '.'))
@@ -21,11 +25,6 @@ daemon = TweetStream::Daemon.new 'tracker', {
   output_logfilename: 'twitter_daemon.log'
 }
 
-daemon.on_inited do
-  # ActiveRecord::Base.connection.reconnect!
-  # ActiveRecord::Base.logger = Logger.new(File.open('log/stream.log', 'w+'))
-end
-
 TWITTER_USERS_ID = [
   124717202,  # @s_dumontier
   27488470,   # @Fred_Burtz
@@ -39,11 +38,8 @@ TWITTER_USERS_ID = [
   4853273541, # @dot_project_16
 ]
 
-# daemon.track('SNCF') do |tweet|
 daemon.follow(TWITTER_USERS_ID) do |tweet|
   return unless Setting.first.twitter_enabled
-
-  puts "#{tweet.text}"
 
   notification = {
     data: {
