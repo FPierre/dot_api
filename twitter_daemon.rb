@@ -47,7 +47,8 @@ daemon.follow(TWITTER_USERS_ID) do |tweet|
         content: tweet.text,
         duration: 1000,
         priority: 3,
-        user: 'Twitter'
+        user: 'Twitter',
+        created_at: DateTime.now
       }
     }
   }

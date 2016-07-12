@@ -29,7 +29,7 @@ class RaspberryApiConnector
 
     self
   rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError => e # API unreachable
-    raise Error.new 'API is unreachable'
+    # raise Error.new 'API is unreachable'
   end
 
   private

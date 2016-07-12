@@ -35,17 +35,17 @@ module Api
           if setting_params.include? :room_occupied
             ap "API::V1::SettingsController#update room_occupied to #{@setting.room_occupied}"
 
-            # Connected to Raspberry Pi API
-            raspberry_api_connector = RaspberryApiConnector.new
+            # Send to Websocket client new room mode
+            ActionCable.server.broadcast 'room_mode_channel', room_occupied: @setting.room_occupied
 
             begin
+              # Connected to Raspberry Pi API
+              raspberry_api_connector = RaspberryApiConnector.new
+
               # Send room mode
               raspberry_api_connector.get_room_occupied mode: @setting.room_occupied
             rescue RaspberryApiConnector::Error => e
               render json: { error: 'Service_unavailable' }, status: :service_unavailable and return
-            else
-              # Send to Websocket client new room mode
-              ActionCable.server.broadcast 'room_mode_channel', room_occupied: @setting.room_occupied
             end
           end
 
