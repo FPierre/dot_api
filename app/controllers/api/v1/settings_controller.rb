@@ -56,7 +56,7 @@ module Api
 
           # Set the SARAH state
           if setting_params.include? :sarah_enabled
-            ap "API::V1::SettingsController#update sarah_enabled to #{sarah_enabled}"
+            ap "API::V1::SettingsController#update sarah_enabled to #{@setting.sarah_enabled}"
 
             voice_recognition_server_api_connector = VoiceRecognitionServerApiConnector.new
 
