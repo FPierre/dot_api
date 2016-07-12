@@ -14,20 +14,23 @@ class VoiceRecognitionServerApiConnector
 
     @api_port = server.api_port
     @api_url  = server.domain_name
+
+    ap @api_port
+    ap @api_url
   rescue NoMethodError => e
     raise Error.new "Please add 'api_url' and 'api_port' keys into your configuration"
   end
 
   def get_history options = {}
-    process { resource.get(route_for('dot_histoire', options), headers) }
+    process { resource.get(route_for('dot_histoire', options)) }
   end
 
   def get_path options = {}
-    process { resource.get(route_for('dot_itineraire', options), headers) }
+    process { resource.get(route_for('dot_itineraire', options)) }
   end
 
   def get_weather options = {}
-    process { resource.get(route_for('dot_meteo', options), headers) }
+    process { resource.get(route_for('dot_meteo', options)) }
   end
 
   def get_text_to_speech options = {}
@@ -35,7 +38,7 @@ class VoiceRecognitionServerApiConnector
   end
 
   def get_sleep_mode options = {}
-    process { resource.get(route_for('dot_veille', options), headers) }
+    process { resource.get(route_for('dot_veille', options)) }
   end
 
   def process
